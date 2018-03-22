@@ -9,9 +9,11 @@
             Bagaimana anda mengelola usaha yang anda miliki saat ini ?
             <br>
             . . . . .
-          </label><br>
+          </label>
+          <br>
         </div>
       </div>
+
       <div class="row">
         <div class="col-lg-8">
           <label style="color:#27607F; font-size:small">
@@ -34,10 +36,9 @@
           @endif
         </div>
       </div>
+
     </div>
-
-
-    <hr>
+    <hr style="margin-top:2.5%">
   </div>
 
   <div class="container-fluid">
@@ -132,10 +133,32 @@
         </div> --}}
 
         <div class="row">
-
           <div class="col-lg-8">
+            <label style="color:#27607F; font-size:small; margin-left:20px">
+              Backind membantu anda untuk memudahkan pengelolaan bisnis yang anda miliki saat ini,
+              dari pengelolaan data usaha, perancangan strategi usaha hingga pengelolaan laporan usaha kini dapat anda kendalikan
+              hanya dari satu aplikasi.
+
+              Penyajian data merupakan salah satu kegiatan dalam pembuatan laporan hasil penelitan yang telah dilakukan agar
+              dapat dipahami dan dianalisis sesuai dengan tujuan yang diinginkan. Data yang disajikan harus sederhana dan jelas agar muda dibaca.
+              Penyajian data juga dimaksudkan agar para pengamat dapat dengan mudah memahami apa yang kita sajikan untuk selanjutnya dilakukan
+              penilaian atau perbandingan, dan lain-lain.
+              <br>
+              <br>
+            </label>
+            <label style="color:#27607F; font-size:small; margin-left:20px">
+              Penyajian data merupakan salah satu kegiatan dalam pembuatan laporan hasil penelitan yang telah dilakukan agar
+              dapat dipahami dan dianalisis sesuai dengan tujuan yang diinginkan. Data yang disajikan harus sederhana dan jelas agar muda dibaca.
+              Penyajian data juga dimaksudkan agar para pengamat dapat dengan mudah memahami apa yang kita sajikan untuk selanjutnya dilakukan
+              penilaian atau perbandingan, dan lain-lain. Penyajian data merupakan salah satu kegiatan dalam pembuatan laporan hasil penelitan yang telah dilakukan agar
+              dapat dipahami dan dianalisis sesuai dengan tujuan yang diinginkan. Data yang disajikan harus sederhana dan jelas agar muda dibaca.
+              Penyajian data juga dimaksudkan agar para pengamat dapat dengan mudah memahami apa yang kita sajikan untuk selanjutnya dilakukan
+              penilaian atau perbandingan, dan lain-lain.
+              <br>
+              <br>
+            </label>
             <!-- Example Bar Chart Card -->
-            <div class="card mb-3">
+            {{-- <div class="card mb-3">
               <div class="card-header">
                 <i class="fa fa-bar-chart"></i>
                 Revenue Bar Chart
@@ -160,7 +183,7 @@
               <div class="card-footer small text-muted">
                 Updated yesterday at 11:59 PM
               </div>
-            </div>
+            </div> --}}
           </div>
 
           <div class="col-lg-4">
@@ -168,7 +191,7 @@
             <div class="card mb-3">
               <div class="card-header">
                 <i class="fa fa-pie-chart"></i>
-                Persentase Usaha
+                <label style="font-size:small">Persentase Usaha</label>
               </div>
               <div class="card-body">
                 <input type="hidden" value="{{count($homestayData)}}" id="homestay" >
@@ -176,7 +199,7 @@
                 <canvas id="myPieChart" width="100%" height="100%"></canvas>
               </div>
               <div class="card-footer small text-muted">
-                Updated yesterday at 11:59 PM
+                <label style="font-size:small">Updated yesterday at 11:59 PM</label>
               </div>
             </div>
           </div>

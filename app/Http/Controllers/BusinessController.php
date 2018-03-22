@@ -9,6 +9,7 @@ use App\business;
 use App\business_detail;
 use App\menu;
 use App\city;
+use App\business_picture;
 use Auth;
 use Storage;
 
@@ -69,6 +70,14 @@ class BusinessController extends Controller
         $condition = 1;
       }
 
+      $this->validate($data, [
+          'bus_pict' => 'required|image:png|image:jpg|image:jpeg',
+          'img' => 'required|image:png|image:jpg|image:jpeg',
+          'imgg' => 'image:png|image:jpg|image:jpeg',
+          'imggg' => 'image:png|image:jpg|image:jpeg',
+          'desc' => 'max:500',
+      ]);
+
       $business_detail = business_detail::create([
           'business_name' => $data['name'],
           'business_email' => $data['email'],
@@ -83,6 +92,28 @@ class BusinessController extends Controller
           'business_profile_pict' => $path,
           'condition'=> $condition
       ]);
+
+      if ($data->img) {
+        $path1 = $data->img->store('bus_detail','public');
+        business_picture::create([
+          'id_business_detail' => $business_detail->id_business_details,
+          'pict_url' => $path1
+        ]);
+      }
+      if ($data->imgg) {
+        $path2 = $data->imgg->store('bus_detail','public');
+        business_picture::create([
+          'id_business_detail' => $business_detail->id_business_details,
+          'pict_url' => $path2
+        ]);
+      }
+      if ($data->imggg) {
+        $path3 = $data->imggg->store('bus_detail','public');
+        business_picture::create([
+          'id_business_detail' => $business_detail->id_business_details,
+          'pict_url' => $path3
+        ]);
+      }
           if($id == 1 ){
             business::create([
               'id_menu' => $id,

@@ -89,6 +89,19 @@
                   <label style="font-size:small; text-align:justify;" >{{$business_details->business_desc}}</label>
                 </td>
               </tr>
+              <tr valign = top>
+                <td>
+                  <label style="font-size: small;">Foto</label>
+                </td>
+                <td>
+                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
+                </td>
+                <td>
+                  @foreach ($business_details->pictures as $img)
+                      <img src="{{asset('storage/'.$img->pict_url)}}" alt="">
+                  @endforeach
+                </td>
+              </tr>
               </tr>
             </table>
           </td>

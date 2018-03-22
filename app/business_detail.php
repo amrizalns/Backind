@@ -27,6 +27,6 @@ class business_detail extends Model
         return $this->hasOne(business::class, 'id_business_details');
     }
     public function pictures(){
-        return $this->hasMany(business_picture::class, 'id_business_details');
+        return $this->hasMany(business_picture::class, 'id_business_detail');
     }
 }

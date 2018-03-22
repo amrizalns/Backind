@@ -8,11 +8,11 @@
   </div>
   <div class="container-fluid">
     <div class="col-lg">
-      <div class="card mb-3">
-        <div class="card-header" style="font-size: small">
+      <div class="card mb-3" style="background-color:#fafafa; border-radius:10px; border:0px">
+        {{-- <div class="card-header" style="font-size: small">
           <i class="fa fa-paperclip"></i>
           Masukkan Data Usaha
-        </div>
+        </div> --}}
         <!--Form Register-->
         <div class="card-body" style="font-size: small">
           <form method="POST" action="{{route ('insertBusiness',['id'=>$menu->id_menu])}}" enctype="multipart/form-data">
@@ -52,7 +52,7 @@
                   <label style="font-size: small"> : </label>
                 </div>
                 <div class="col-lg-3">
-                  <input type="file" name="bus_pict" multiple id="gallery-photo-add"></input>
+                  <input type="file" name="bus_pict" id="gallery-photo-add"></input>
                 </div>
               </div>
               <hr>
@@ -124,7 +124,6 @@
                       <input type="hidden" class="gllpZoom" value="4"/>
                     </div>
                   </div>
-                  </div>
                   <div class="row form-group {{ $errors->has('Business lat') ? ' has-error' : '' }}">
                     <div class="col-lg-4">
                       <label for="name" style="font-size: small">Latitude</label>
@@ -146,6 +145,7 @@
                     <div class="col-lg-7">
                       <input readonly style="font-size: small" type="text" id="lngShow" name="lang" class="gllpLongitude form-control" placeholder="Longitude" required/>
                     </div>
+                  </div>
                   </div>
               </div>
 
@@ -233,9 +233,76 @@
 
               </div>
             </div>
+            {{-- Input detail image --}}
+            <script type="text/javascript">
+                function img1(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                function img2(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imgg').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                function img3(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imggg').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+            <div class="form-group col-lg-12" style="font-size: small">
+              <hr>
+              <label style="font-size:small"><b>Detail Gambar</b>
+                <br><label style="font-size:small; color:#F44336"><i>(* masukkan 3 gambar untuk memberikan gambaran kepada calon pemesan usaha dari usaha yang sedang anda kelola *)</i></label>
+              </label>
+              <hr>
+              <div class="row form-group {{ $errors->has('Business image') ? ' has-error' : '' }}">
+              <div class="col-lg-4">
+                <input type='file' name="img" onchange="img1(this);"/>
+              </div>
+              <div class="col-lg-4">
+                <input type='file' name="imgg" onchange="img2(this);"/>
+              </div>
+              <div class="col-lg-4">
+                <input type='file' name="imggg" onchange="img3(this);"/>
+              </div>
+              </div>
+            </div>
+            <div class="form-group col-lg-12" style="font-size: small" >
+              <div class="row form-group {{ $errors->has('Business image') ? ' has-error' : '' }}" style="height:250px">
+              <div class="col-lg-4">
+                <img id="img" src="#" alt="  Gambar 1" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px"/>
+              </div>
+              <div class="col-lg-4">
+                <img id="imgg" src="#" alt="  Gambar 2" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px"/>
+              </div>
+              <div class="col-lg-4">
+                <img id="imggg" src="#" alt="  Gambar 3" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px"/>
+              </div>
+              </div>
+            </div>
             <hr>
             <div class="form-group col-lg-12" style="font-size: small">
-            <div class="row form-group {{ $errors->has('Business address') ? ' has-error' : '' }}">
+            <div class="row form-group {{ $errors->has('Business assignment') ? ' has-error' : '' }}">
               <div class="col-lg-1">
                 <input id="checkBox" type="checkbox" style="transform: scale(1.5);"></input>
               </div>
@@ -248,7 +315,6 @@
               </div>
             </div>
           </div>
-            <hr>
             <div>
               <button type="submit" class="btn btn-primary btn-block" style="font-size:small">
                 Tambah data

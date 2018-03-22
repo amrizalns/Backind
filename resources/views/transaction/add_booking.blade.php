@@ -110,11 +110,11 @@
         </div>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-header" style="font-size: small">
+      <div class="card mb-3" style="background-color:#fafafa; border-radius:10px; border:0px">
+        {{-- <div class="card-header" style="font-size: small">
           <i class="fa fa-paperclip"></i>
           Detail Pemesan
-        </div>
+        </div> --}}
         <!--Form Pemesan-->
         <div class="card-body" style="font-size: small">
           <div class="form-group col-lg-6" style="font-size: small">
@@ -168,11 +168,11 @@
         </div>
       </div>
 
-      <div class="card mb-3">
-        <div class="card-header" style="font-size: small">
+      <div class="card mb-3" style="background-color:#fafafa; border-radius:10px; border:0px">
+        {{-- <div class="card-header" style="font-size: small">
           <i class="fa fa-paperclip"></i>
           Detail Transaksi
-        </div>
+        </div> --}}
         <!--Form Transaksi-->
         <div class="card-body" style="font-size: small">
           <form method="POST" action="{{ route('list_booking')}}" enctype="multipart/form-data">
