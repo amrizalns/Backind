@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Model;
 use App\User;
 use App\menu;
 use App\business_detail;
+use App\booking_detail;
 
 class business extends Model
 {
@@ -32,5 +33,11 @@ class business extends Model
     }
     public function city(){
         return $this->belongsTo('App\city','id_city','id_city');
+    }
+    public function booking_tourism(){
+      return $this->belongsTo('App\booking_detail','id_business','id_tourism');
+    }
+    public function booking_homestay(){
+      return $this->belongsTo('App\booking_detail','id_business','id_homestay');
     }
 }

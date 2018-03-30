@@ -136,7 +136,7 @@
             </a>
             <ul class="sidenav-third-level collapse" id="transaksi" style="background-color:#EEEEEE">
               <li>
-                <a href="#" style="font-size: small">Menunggu Pembayaran</a>
+                <a href="{{route('status_trans_admin')}}" style="font-size: small">Menunggu Pembayaran</a>
               </li>
               <li>
                 <a href="#" style="font-size: small">Terkonfirmasi</a>

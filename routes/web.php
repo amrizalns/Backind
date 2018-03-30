@@ -17,6 +17,7 @@ Route::get('/user', function () {
 
 Auth::routes();
 
+Route::get('pagenotfound', ['as'=>'notfound', 'users' => 'HomeController@pagenotfound']);
 
 Route::group(['middleware'=>['auth']], function(){
   Route::get('/', 'HomeController@home')->name("index");
@@ -31,6 +32,7 @@ Route::group(['middleware'=>['auth']], function(){
   Route::get('invoice/{booking_detail}','BookingDetailController@invoice')->name('invoice');
   Route::get('invoice_final/{id_booking}','TransactionPaymentController@invoice_final')->name('invoice_final');
   Route::get('status_trans_spadmin','TransactionPaymentController@index_spAdmin')->name('status_trans_spadmin');
+  Route::get('status_trans_admin','TransactionPaymentController@index_Admin')->name('status_trans_admin');
 
   //insert
   Route::post('businessInsert/{id}','BusinessController@insertBusiness')->name('insertBusiness');
@@ -38,9 +40,8 @@ Route::group(['middleware'=>['auth']], function(){
 
   //getdata
   Route::get('userEdit/{id}','UserController@editUser');
-  Route::post('businessStatus/{id_business}','BusinessController@editStatus')->name('businessStatus');
   Route::get('userEditProfile/{id}','UserController@editProfileUser')->name('editProfileUser');
-  Route::get('businessEdit/{id}/{id_business}','BusinessController@edit');
+  Route::get('businessEdit/{id}/{id_business}','BusinessController@edit')->name('editBisnis');
   Route::get('businessView/{id}/{id_business}','BusinessController@view');
 
   //update
@@ -48,8 +49,11 @@ Route::group(['middleware'=>['auth']], function(){
   Route::post('userProfileEdit','UserController@updateProfileUser')->name('userProfileEdit');
   Route::put('businessUpdate/{id}/{id_menu}', 'BusinessController@update')->name('updateBusiness');
   Route::get('update_cost/{booking_detail}','BookingDetailController@update')->name('update_cost');
-  Route::post('payment_conf/{transaction_payment}','TransactionPaymentController@update')->name('payment_conf');
-
+  Route::get('payment_conf/{transaction_payment}','TransactionPaymentController@update')->name('payment_conf');
+  Route::put('updateDetailImage/{id}','BusinessController@updateDetailImage')->name('updateDetailImage');
+  Route::put('uploadBukti','TransactionPaymentController@uploadBukti')->name('uploadBukti');
+  Route::post('businessStatus/{id_business}','BusinessController@editStatus')->name('businessStatus');
+  Route::post('transactionStatus/{id_transaksi}','TransactionPaymentController@editStatusTransaksi')->name('transactionStatus');
   //delete
   Route::post('userDelete','UserController@deleteUser');
   Route::post('delete','BusinessController@delete');

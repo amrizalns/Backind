@@ -272,12 +272,16 @@
             <div class="form-group col-lg-12" style="font-size: small">
               <hr>
               <label style="font-size:small"><b>Detail Gambar</b>
-                <br><label style="font-size:small; color:#F44336"><i>(* masukkan 3 gambar untuk memberikan gambaran kepada calon pemesan usaha dari usaha yang sedang anda kelola *)</i></label>
+                <br><label style="font-size:small; color:#F44336">
+                <i>
+                  (* masukkan 3 gambar untuk memberikan gambaran kepada calon pemesan usaha dari usaha yang sedang anda kelola *)<br>
+                  (* gambar 1 wajib diisi*)
+                </i></label>
               </label>
               <hr>
               <div class="row form-group {{ $errors->has('Business image') ? ' has-error' : '' }}">
               <div class="col-lg-4">
-                <input type='file' name="img" onchange="img1(this);"/>
+                <input type='file' name="img" onchange="img1(this);" required/>
               </div>
               <div class="col-lg-4">
                 <input type='file' name="imgg" onchange="img2(this);"/>
@@ -327,7 +331,7 @@
   </div>
   <br>
   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/2.1.1/jquery.min.js"></script>
-  <script type="text/javascript">
+  {{-- <script type="text/javascript">
       $(function() {
       // Multiple images preview in browser
       var imagesPreview = function(input, placeToInsertImagePreview) {
@@ -352,5 +356,5 @@
           imagesPreview(this, 'div.gallery');
       });
     });
-  </script>
+  </script> --}}
 @endsection
