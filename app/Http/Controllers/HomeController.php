@@ -37,4 +37,9 @@ class HomeController extends Controller
         ]);
     }
 
+    public function pagenotfound()
+    {
+      return view ('errors.404');
+    }
+
 }

@@ -100,6 +100,7 @@ class BusinessController extends Controller
           'pict_url' => $path1
         ]);
       }
+
       if ($data->imgg) {
         $path2 = $data->imgg->store('bus_detail','public');
         business_picture::create([
@@ -114,6 +115,7 @@ class BusinessController extends Controller
           'pict_url' => $path3
         ]);
       }
+
           if($id == 1 ){
             business::create([
               'id_menu' => $id,
@@ -180,22 +182,11 @@ class BusinessController extends Controller
             $business_detail->condition = $data->input('condition');
           }
 
-
-      // if ($data->hasFile('bus_pict')) {
-      //       // $pict = $data->file('bus_pict')->store('bus_avatar','public');
-      //       return $data->input(;
-      //       $pict = $data->bus_pict->store('bus_avatar','public');
-      //       // foreach ($pict as $pic) {
-      //       //   $picts = $pic->getClientOriginalName();
-      //       //   $pic->move("storage/bus_avatar/", $picts);
-      //       //  }
-      //       // $path = $data->bus_pict->store('bus_avatar','public');
-      //       $business_detail->business_profile_pict = $pict;
-      //   }
             $pict = $data->file('bus_pict')->store('bus_avatar','public');
             $business_detail->business_profile_pict = $pict;
            $business_detail->save();
-           return redirect()->route ('businessDetail',['id'=>$id_menu]);
+           alert()->success('Data usaha berhasil diubah', 'Selamat')->persistent('Tutup');
+           return redirect()->route('businessDetail',['id'=>$id_menu]);
     }
 
     public function delete(Request $request)
@@ -203,14 +194,47 @@ class BusinessController extends Controller
       if($request->id_usaha == 1 ){
         $business = business::where('id_business_details',$request->id_business_detail)->delete();
         $business_detail = business_detail::where('id_business_details',$request->id_business_detail)->delete();
+        $business_picture = business_picture::where('id_business_detail',$request->id_business_detail)->delete();
         // $business->delete();
 
       }elseif($request->id_usaha == 2){
         $business = business::where('id_business_details',$request->id_business_detail)->delete();
         $business_detail = business_detail::where('id_business_details',$request->id_business_detail)->delete();
+        $business_picture = business_picture::where('id_business_detail',$request->id_business_detail)->delete();
         //$business->delete();
       }
+      alert()->success('Data berhasil dihapus', 'Selamat')->persistent('Tutup');
       return redirect('businessDetail/'.$request->id_usaha);
+    }
+
+    public function updateDetailImage(Request $request, $id)
+    {
+
+      $this->validate($request, [
+          'img' => 'required|image:png|image:jpg|image:jpeg',
+          'imgg' => 'image:png|image:jpg|image:jpeg',
+          'imggg' => 'image:png|image:jpg|image:jpeg',
+      ]);
+      if ($request->img) {
+        $path1 = $request->img->store('bus_detail','public');
+        business_picture::find($request->input('id_img'))->update(
+          ['pict_url' => $path1]
+        );
+      }
+      if ($request->imgg) {
+        $path2 = $request->imgg->store('bus_detail','public');
+        business_picture::find($request->input('id_imgg'))->update(
+          ['pict_url' => $path2]
+        );
+      }
+      if ($request->imggg) {
+        $path3 = $request->imggg->store('bus_detail','public');
+        business_picture::find($request->input('id_imggg'))->update(
+          ['pict_url' => $path3]
+        );
+      }
+      alert()->success('Gambar detail usaha berhasil diubah', 'Selamat')->persistent('Tutup');
+      return redirect()->route('editBisnis',['id'=>business_detail::find($id)->business->id_menu,'id_business'=>$id]);
     }
 
     public function editStatus(Request $request , business $id_business){

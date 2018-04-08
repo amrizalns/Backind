@@ -211,7 +211,11 @@
                     <select style="font-size: small" id="homestay" type="text" class="form-control" name="homestay" value=""/>
                         <option value="" disabled selected>pilih salah satu . . . </option>
                       @foreach ($homestay as $data)
+                        @if ($data->business_status == 1)
                         <option value="{{$data->id_business}}">{{$data->business_details->business_name}}</option>
+                        @else
+                        <option value=""><i>not found</i></option>
+                        @endif
                       @endforeach
                     </select>
                   </div>
@@ -246,7 +250,11 @@
                     <select style="font-size: small" id="tourism" type="text" class="form-control" name="tourism" value=""/>
                         <option value="" disabled selected>pilih salah satu . . . </option>
                       @foreach ($tourism as $data)
-                        <option value="{{$data->id_business}}">{{$data->business_details->business_name}}</option>
+                        @if ($data->business_status == 1)
+                          <option value="{{$data->id_business}}">{{$data->business_details->business_name}}</option>
+                          @else
+                          <option value=""><i>not found</i></option>
+                        @endif
                       @endforeach
                     </select>
                   </div>

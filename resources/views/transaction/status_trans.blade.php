@@ -25,6 +25,7 @@
             <th>Nama Pemesan</th>
             <th>Total Tagihan</th>
             <th>Status Pemesanan</th>
+            <th>Bukti Transfer</th>
             <th><center>Aksi</center></th>
         </tr>
         </thead>
@@ -45,12 +46,21 @@
                   <span style="font-size: small">Deactived</span>
             @endif
             </td>
+
+            <td>
+              @if ($x->transaction_payment->bukti_transfer != null && $x->transaction_payment->status_transfer == 1)
+                  <center><img src="{{asset('tick-inside-a-circle.svg')}}" alt="" style="width:30px"></center>
+                @elseif ($x->transaction_payment->bukti_transfer != null && $x->transaction_payment->status_transfer == 2)
+                  <center><img src="{{asset('information.svg')}}" alt="" style="width:30px"></center>
+                  @else
+                    <center><img src="{{asset('cancel-symbol-inside-a-circle.svg')}}" alt="" style="width:30px"></center>
+              @endif
+            </td>
             <td>
                 <table>
                     <tr>
                         <td>
-                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#businessStatusPopUp{{$index}}" ><i class="fa fa-fw fa-pencil"></i></button>
-                            </a>
+                            <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#transactionStatusPopUp{{$index}}" ><i class="fa fa-fw fa-pencil"></i></button>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deletePopUp{{$index}}"><i class="fa fa-fw fa-trash"></i></button>
@@ -60,31 +70,28 @@
               </td>
           </tr>
 
-          {{-- <!-- Status Modal -->
-          <div class="modal fade" id="businessStatusPopUp{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <!-- Status Modal -->
+          <div class="modal fade" id="transactionStatusPopUp{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Ubah Status Usaha</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Ubah Status Transaksi</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  <form action="{{route('businessStatus',['id_business' => $data->id_business])}}" method="POST">
+                  <label> Bukti Transfer :</label>
+                  <img id="bukti_transfer" src="{{asset('storage/'.$x->transaction_payment->bukti_transfer)}}" alt="  Bukti Transfer" style="max-width:200px; max-height:300px; border: 1px solid #ddd; border-radius: 4px; padding: 5px"/>
+                  <form action="{{route('transactionStatus',['id_transaksi' => $x->transaction_payment->id_transaksi])}}" method="POST">
+                  <label> Status Transfer :</label>
                   <select class="" name="status">
-                    @if ($data->business_status == 1)
-                      <option value="1" selected>Active</option>
-                      <option value="2">Pending</option>
-                      <option value="3">Deactived</option>
-                      @elseif($data->business_status == 2)
-                        <option value="1">Active</option>
-                        <option value="2" selected>Pending</option>
-                        <option value="3">Deactived</option>
-                      @elseif($data->business_status == 3)
-                        <option value="1">Active</option>
-                        <option value="2">Pending</option>
-                        <option value="3" selected>Deactived</option>
+                    @if ($x->transaction_payment->status_transfer == 1)
+                      <option value="1" selected>Telah dibayar</option>
+                      <option value="2">Menunggu Pembayaran</option>
+                      @elseif($x->transaction_payment->status_transfer == 2)
+                        <option value="1">Telah dibayar</option>
+                        <option value="2" selected>Menunggu Pembayaran</option>
                         @endif
                   </select>
                 </div>
@@ -98,7 +105,7 @@
             </div>
           </div>
 
-          <!-- Delete Modal -->
+          {{-- <!-- Delete Modal -->
           <div class="modal fade" id="deletePopUp{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">

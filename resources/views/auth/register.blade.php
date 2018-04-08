@@ -22,7 +22,7 @@
 
 </head>
 
-<body style="background-color:#0277BD">
+<body style="background-color:#0091EA">
   <div class="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">

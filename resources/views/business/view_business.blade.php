@@ -2,113 +2,117 @@
 @section('content')
 
 <div class="card-body">
-  <span style="color:#0285CC ; font-weight:bold ; font-size:large">Menu Lihat {{$menu->status}}</span>
+  <span style="color:#0285CC ; font-weight:bold ; font-size:large">Menu Detail Usaha {{$menu->status}}</span>
   <br>
   <span style="color:#27607F; font-size:small">Backind Administrator</span>
   <hr>
 </div>
 
 <div class="container-fluid">
-  <div class="col-lg">
-    <div class="form-group {{ $errors->has('Business name') ? ' has-error' : '' }}">
-      <table>
-        <tr>
-          <td>
-            <table>
-                <tr>
-                  <td>
-                    <img src="{{url('storage/'.$business_details->business_profile_pict)}}" class="img-responsive" style="width:200px; height:200px; border-radius:3%; object-fit:cover; margin-right:30px; margin-bottom:30px" >
-                  </td>
-                </tr>
-            </table>
-          </td>
-          <td>
-            <table>
-              <tr>
-                <td style="width:1%; white-space:nowrap">
-                  <label style="font-size: small">Nama usaha</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small">{{$business_details->business_name}}</td>
-              </tr>
-              <tr>
-                <td>
-                  <label style="font-size: small">Email</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small" >{{$business_details->business_email}}</label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label style="font-size: small">Alamat</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small" >{{$business_details->business_address}}</label>
-                </td>
-              </tr>
-              <tr>
-                <td>
-                  <label style="font-size: small">No telfon</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small" >{{$business_details->business_phone}}</label>
-                </td>
-              </tr>
-              <tr>
-                <td style="width:1%; white-space:nowrap">
-                  <label style="font-size: small">Rentang harga</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small" >Rp. {{$business_details->business_price}}</label>
-                </td>
-              </tr>
-              <tr valign = top>
-                <td>
-                  <label style="font-size: small;">Deskripsi</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  <label style="font-size:small; text-align:justify;" >{{$business_details->business_desc}}</label>
-                </td>
-              </tr>
-              <tr valign = top>
-                <td>
-                  <label style="font-size: small;">Foto</label>
-                </td>
-                <td>
-                  <label style="font-size: small; padding-left: 5px; padding-right: 5px"> : </label>
-                </td>
-                <td>
-                  @foreach ($business_details->pictures as $img)
-                      <img src="{{asset('storage/'.$img->pict_url)}}" alt="">
-                  @endforeach
-                </td>
-              </tr>
-              </tr>
-            </table>
-          </td>
-        </tr>
-      </table>
+    <div class="form-group col-lg-12" style="background-color:#fafafa; border-radius:10px; border:0px">
+      <div class="row">
+        <div class="col-lg-4" style="padding:25px">
+          <img src="{{url('storage/'.$business_details->business_profile_pict)}}" class="img-responsive" style=" border: 1px solid #ddd; border-radius: 4px; padding: 5px; max-width: 250px; max-height: 200px; border-radius:3%; object-fit:cover" >
+        </div>
+        <div class="form-group col-lg-8" style="margin-top:25px">
+          <div class="row">
+            <div class="col-lg-3">
+              <label style="font-size: small">Nama usaha</label>
+            </div>
+            <div class="col-lg-0">
+              <label style="font-size: small">:</label>
+            </div>
+            <div class="col-lg-4">
+              <label style="font-size:small">{{$business_details->business_name}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label style="font-size: small">Email</label>
+            </div>
+            <div class="col-lg-0">
+              <label style="font-size: small">:</label>
+            </div>
+            <div class="col-lg-4">
+              <label style="font-size:small" >{{$business_details->business_email}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label style="font-size: small">Alamat</label>
+            </div>
+            <div class="col-lg-0">
+              <label style="font-size: small">:</label>
+            </div>
+            <div class="col-lg-4">
+              <label style="font-size:small" >{{$business_details->business_address}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label style="font-size: small">No Telefon</label>
+            </div>
+            <div class="col-lg-0">
+              <label style="font-size: small">:</label>
+            </div>
+            <div class="col-lg-4">
+              <label style="font-size:small" >{{$business_details->business_phone}}</label>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-lg-3">
+              <label style="font-size: small">Harga Tiket</label>
+            </div>
+            <div class="col-lg-0">
+              <label style="font-size: small">:</label>
+            </div>
+            <div class="col-lg-4">
+              <label style="font-size:small" >Rp. {{$business_details->business_price}}</label>
+            </div>
+          </div>
+
+        </div>
+        </div>
+      </div>
+      <div class="form-group col-lg-12" style="background-color:#fafafa; border-radius:10px; border:0px">
+        <div class="row">
+          {{-- <div class="col-lg-12">
+            <label style="font-size: small; margin-left:15px">Detail Usaha</label>
+          </div> --}}
+          <div class="col-lg-12" style="margin-top:15px; margin-bottom:15px">
+            <div class="row">
+              <div class="col-md-4">
+                <div class="row">
+                  <div class="col-lg-4">
+                    <label style="font-size: small; margin-left:15px">Deskripsi</label>
+                  </div>
+                  <div class="col-lg-0">
+                    <label style="font-size: small">:</label>
+                  </div>
+                  <div class="col-lg-7" valign="top">
+                    <textarea rows="15"style="font-size: small" id="desc" type="text" class="form-control" name="desc" disabled>{{$business_details->business_desc}}</textarea>
+                  </div>
+                </div>
+              </div>
+              <div class="col-md-8">
+                @foreach ($business_details->pictures as $img)
+                  <style>
+                    img {
+                        float: left;
+                    }
+                  </style>
+                  <img src="{{asset('storage/'.$img->pict_url)}}" style="max-width: 250px; max-height: 300px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; margin-left:15px">
+                @endforeach
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
     </div>
+
     <div class="col-lg">
+      <hr>
       <div class="card mb-3">
         <div class="card-header">
           <i class="fa fa-bar-chart"></i>
@@ -138,43 +142,6 @@
     </div>
   </div>
 
-{{-- data table kamar --}}
-@if ($menu->id_menu == 2)
-  <div class="col-lg">
-    <hr>
-    <div class="card mb-3">
-      <div class="card-header">
-        <i class="fa fa-table"></i>
-        <span style="font-size:small">Data Kamar {{$menu->status}}</span>
-      </div>
-    <div class="card-body" style="font-size: small">
-    <div class="table-responsive" style="font-size: small">
 
-      <table class="table table-bordered" id="dataTable" cellspacing="0" style="font-size: small">
-        <thead>
-        <tr>
-            <th>No</th>
-            <th>Nama Kamar</th>
-            <th>Kapasitas Kamar</th>
-            {{-- <th>Email Usaha</th> --}}
-            <th>Harga Kamar</th>
-            <th>Jumlah Kamar</th>
-            <th>Status Kamar</th>
-            <th><center>Aksi</center></th>
-        </tr>
-        </thead>
-          <tbody>
-
-          </tbody>
-     </table>
-     <br>
-     <div class="float-right">
-    <a href="{{ route ('addbusiness', ['id' => $menu]) }}"><button class="btn btn-primary" style=" font-size:small;">Tambah Kamar</button></a>
-     </div>
-   </div>
-  </div>
-</div>
-</div>
-@endif
 </div>
 @endsection

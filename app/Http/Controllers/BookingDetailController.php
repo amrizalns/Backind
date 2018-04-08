@@ -8,6 +8,8 @@ use App\business;
 use Auth;
 use App\business_detail;
 use App\transaction_payment;
+use App\Mail\Invoice;
+use Illuminate\Support\Facades\Mail;
 use Illuminate\Http\Request;
 
 class BookingDetailController extends Controller
@@ -51,14 +53,14 @@ class BookingDetailController extends Controller
 
       $homestay_data = business_detail::find($request->input('homestay'));
       $tourism_data = business_detail::find($request->input('tourism'));
-     
+
       $total_price = 0;
-      if ($request->input('tourism')) {
+      if ($request->input('tourism') && $request->input('homestay')) {
+        $total_price = $request->input('total_ticket') * ($homestay_data->business_price + $tourism_data->business_price);
+      }else if ($request->input('tourism')) {
         $total_price = $request->input('total_ticket') * ($tourism_data->business_price);
       }else if ($request->input('homestay')) {
         $total_price = $request->input('total_ticket') * ($homestay_data->business_price);
-      }else{
-        $total_price = $request->input('total_ticket') * ($homestay_data->business_price + $tourism_data->business_price);
       }
 
       if ($request->input('tourism')) {
@@ -79,9 +81,9 @@ class BookingDetailController extends Controller
 
         ]);
       }else{
+        $homestay = $homestay_data->business_price;
 
         $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
-
 
         $id_booking = booking_detail::create([
           'id_homestay' => $request->input('homestay'),
@@ -140,6 +142,9 @@ class BookingDetailController extends Controller
       $total_cost = $booking_detail->total_cost - ($booking_detail->id_booking+100);
       $booking_detail->total_cost = $total_cost;
       $booking_detail->save();
+
+
+      Mail::to('infobackind@gmail.com')->send(new Invoice($booking_detail));
 
       return redirect(route('invoice_final',['id_booking'=>$booking_detail]));
     }

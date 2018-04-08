@@ -33,6 +33,7 @@ class user_seeder extends Seeder
            'phone_number'=>'085334667569',
            'avatar'=>'',
          ]);
+
          User::create([
            'id_user'=>'3',
            'id_roles'=>'2',
@@ -43,6 +44,7 @@ class user_seeder extends Seeder
            'phone_number'=>'085334667569',
            'avatar'=>'',
          ]);
+
          User::create([
            'id_user'=>'4',
            'id_roles'=>'5',
@@ -53,12 +55,13 @@ class user_seeder extends Seeder
            'phone_number'=>'085334667569',
            'avatar'=>'',
          ]);
+
          User::create([
            'id_user'=>'5',
            'id_roles'=>'5',
            'name'=>'Khania',
            'email'=>'khaniaputri@gmail.com',
-           'password'=>bcrypt('khaniaputri'),,
+           'password'=>bcrypt('khaniaputri'),
            'address'=>'Jalan Panglima Polim Perumda Blok N-1 Kab. Bojonegoro',
            'phone_number'=>'085334667569',
            'avatar'=>'',

@@ -16,7 +16,7 @@ class CreateTransactionPaymentsTable extends Migration
         Schema::create('transaction_payments', function (Blueprint $table) {
             $table->increments('id_transaksi');
             $table->integer('id_booking')->unsigned();
-            $table->date('tgl_transfer')->nullable();
+            $table->datetime('tgl_transfer')->nullable();
             $table->string('bukti_transfer')->nullable();
             $table->tinyInteger('status_transfer')->default(2);
             $table->timestamps();

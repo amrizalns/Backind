@@ -11,7 +11,7 @@
       <div class="card mb-3">
         <div class="card-header" style="font-size: small">
           <i class="fa fa-paperclip"></i>
-          Edit Data Usaha
+          Data Usaha
         </div>
         <!--Form Register-->
         <div class="card-body" style="font-size: small">
@@ -212,16 +212,17 @@
                     <label for="name" style="font-size: small">:</label>
                   </div>
                   <div class="col-lg-7">
-                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" name="desc" value="{{$business_details->business_desc}}" placeholder="Masukkan Deskripsi Bisnis ( maksimal 500 huruf )"required autofocus></textarea>
+                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" name="desc" value=""required autofocus>{{$business_details->business_desc}}</textarea>
                   </div>
                 </div>
                 </div>
 
               </div>
             </div>
+
             <hr>
             <div class="form-group col-lg-12" style="font-size: small">
-            <div class="row form-group {{ $errors->has('Business address') ? ' has-error' : '' }}">
+            <div class="row form-group {{ $errors->has('Business assignment') ? ' has-error' : '' }}">
               <div class="col-lg-1">
                 <input id="checkBox" type="checkbox" style="transform: scale(1.5);"></input>
               </div>
@@ -240,6 +241,89 @@
               </button>
             </div>
           </form>
+        </div>
+      </div>
+      <hr>
+      <div class="card mb-3">
+        <div class="card-header" style="font-size: small">
+          <i class="fa fa-paperclip"></i>
+          Gambar Usaha
+        </div>
+        <!--Form Register-->
+        <div class="card-body" style="font-size: small">
+            <script type="text/javascript">
+                function img1(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#img').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                function img2(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imgg').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+                function img3(input) {
+                    if (input.files && input.files[0]) {
+                        var reader = new FileReader();
+
+                        reader.onload = function (e) {
+                            $('#imggg').attr('src', e.target.result);
+                        }
+
+                        reader.readAsDataURL(input.files[0]);
+                    }
+                }
+            </script>
+            <div class="form-group col-lg-12" style="font-size: small">
+              <hr>
+              <label style="font-size:small"><b>Detail Gambar</b>
+                <br><label style="font-size:small; color:#F44336"><i>(* ubah 3 gambar untuk memberikan gambaran kepada calon pemesan usaha dari usaha yang sedang anda kelola *)</i></label>
+              </label>
+              <hr>
+              <div class="row form-group {{ $errors->has('Business image') ? ' has-error' : '' }}">
+              <div class="col-lg-4">
+
+              <form method="POST" action="{{route ('updateDetailImage',['id'=>$business_details->id_business_details])}}" enctype="multipart/form-data">
+                  {{ csrf_field() }}
+                  <input type="hidden" name="_method" value="put">
+                <input type='file' name="img" onchange="img1(this);"/>
+                @if ($business_details->pictures[0])
+                  <input type="hidden" name="id_img" value="{{$business_details->pictures[0]->id_business_pictures}}">
+                @endif
+                @if ($business_details->pictures[1])
+                  <input type="hidden" name="id_imgg" value="{{$business_details->pictures[1]->id_business_pictures}}">
+                @endif
+                @if ($business_details->pictures[2])
+                  <input type="hidden" name="id_imggg" value="{{$business_details->pictures[2]->id_business_pictures}}">
+                @endif
+                <img id="img" src="#" alt="  Gambar 1" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; margin-top:10px"/>
+              </div>
+              <div class="col-lg-4">
+                <input type='file' name="imgg" onchange="img2(this);"/>
+                <img id="imgg" src="#" alt="  Gambar 2" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; margin-top:10px"/>
+              </div>
+              <div class="col-lg-4">
+                <input type='file' name="imggg" onchange="img3(this);"/>
+                <img id="imggg" src="#" alt="  Gambar 3" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; margin-top:10px"/>
+              </div>
+              <button type="submit" class="btn btn-warning btn-block" style="font-size:small; margin-top:10px">
+                Ubah Detail Gambar
+              </button>
+                </form>
+              </div>
+            </div>
         </div>
       </div>
     </div>

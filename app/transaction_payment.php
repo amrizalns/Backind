@@ -14,4 +14,7 @@ class transaction_payment extends Model
       'bukti_transfer',
       'status_transfer'
     ];
+    public function booking_detail(){
+      return $this->belongsTo(booking_detail::class, 'id_booking');
+    }
 }
