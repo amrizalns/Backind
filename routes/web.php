@@ -33,6 +33,7 @@ Route::group(['middleware'=>['auth']], function(){
   Route::get('invoice_final/{id_booking}','TransactionPaymentController@invoice_final')->name('invoice_final');
   Route::get('status_trans_spadmin','TransactionPaymentController@index_spAdmin')->name('status_trans_spadmin');
   Route::get('status_trans_admin','TransactionPaymentController@index_Admin')->name('status_trans_admin');
+  Route::get('eticket','TransactionPaymentController@eticket')->name('eticket');
 
   //insert
   Route::post('businessInsert/{id}','BusinessController@insertBusiness')->name('insertBusiness');

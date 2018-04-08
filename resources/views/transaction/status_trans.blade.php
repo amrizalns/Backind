@@ -61,7 +61,6 @@
                     <tr>
                         <td>
                             <button type="submit" class="btn btn-info" data-toggle="modal" data-target="#transactionStatusPopUp{{$index}}" ><i class="fa fa-fw fa-pencil"></i></button>
-                            </a>
                         </td>
                         <td>
                             <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deletePopUp{{$index}}"><i class="fa fa-fw fa-trash"></i></button>

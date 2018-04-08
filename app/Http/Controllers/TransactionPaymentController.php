@@ -33,6 +33,16 @@ class TransactionPaymentController extends Controller
       return view('transaction/payment_method', ['booking_detail'=>$id_booking]);
     }
 
+    public function eticket(){
+      $paid = transaction_payment::where('status_transfer',1)->get();
+      $wait = transaction_payment::where('status_transfer',2)->get();
+      $exp = transaction_payment::where('status_transfer',3)->get();
+      return view('transaction/ticket', [
+        'paid' =>$paid,
+        'wait' => $wait,
+        'exp' =>$exp
+        ] );
+    }
     /**
      * Show the form for creating a new resource.
      *

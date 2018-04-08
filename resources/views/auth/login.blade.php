@@ -22,7 +22,7 @@
 
   </head>
 
-  <body style="background-color:#0277BD">
+  <body style="background-color:#0091EA">
     <div class="container">
       <div style="margin-top:10%; margin-bottom:2%">
         <table>

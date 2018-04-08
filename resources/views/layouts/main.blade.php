@@ -41,7 +41,7 @@
   <body class="fixed-nav sticky-footer bg-light" id="page-top">
 
     <!-- Navigation -->
-    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#0277BD" id="mainNav">
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top" style="background-color:#0091EA" id="mainNav">
       <a class="" href="/">
         <img src="{{asset('backind_white.png')}}" width="120px" style="margin-left:50px">
       </a>
@@ -99,15 +99,10 @@
                 <a href="{{ URL::to('add_trans') }}" style="font-size: small">Buat Transaksi</a>
               </li>
               <li>
-                <a class="nav-link-collapse collapsed" data-toggle="collapse" href="#collapseMulti2" style="font-size: small">Status Transaksi</a>
-                <ul class="sidenav-third-level collapse" id="collapseMulti2" style="background-color:#E0E0E0">
-                  <li>
-                    <a href="#" style="font-size: small">Menunggu Pembayaran</a>
-                  </li>
-                  <li>
-                    <a href="#" style="font-size: small">Terkonfirmasi</a>
-                  </li>
-                </ul>
+                <a href="#" style="font-size: small">Status Transaksi</a>
+              </li>
+              <li style="margin-bottom:10px">
+                <a href="{{route('eticket')}}" style="font-size: small">E-Ticket</a>
               </li>
             </ul>
           </li>
@@ -175,9 +170,6 @@
               </li>
               <li>
                 <a href="#" style="font-size: small">Menunggu Pembayaran</a>
-              </li>
-              <li>
-                <a href="#" style="font-size: small">Dibayarkan</a>
               </li>
               <li>
                 <a href="#" style="font-size: small">Terkonfirmasi</a>
@@ -315,7 +307,7 @@
     </div>
     <!-- /.content-wrapper -->
 
-    <footer class="sticky-footer" style="background-color:#0277BD">
+    <footer class="sticky-footer" style="background-color:#0091EA">
       <div class="container">
         <div class="text-center">
           <small style="color:#FFFFFF">&copy; Backpacker Indonesia 2018</small>
