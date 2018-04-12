@@ -24,7 +24,8 @@ class TransactionPaymentController extends Controller
 
     public function index_Admin()
     {
-      $data = Auth::user()->business()->with(['booking_tourism','booking_homestay'])->get();
+      $data = business::where('id_user',Auth::user()->id_user)->with(['booking_tourism','booking_homestay'])->get();
+      //$data = Auth::user()->business()->with(['booking_tourism','booking_homestay'])->get();
       return view('transaction/status_trans_admin',['status_admin'=>$data]);
     }
 
@@ -34,14 +35,24 @@ class TransactionPaymentController extends Controller
     }
 
     public function eticket(){
-      $paid = transaction_payment::where('status_transfer',1)->get();
-      $wait = transaction_payment::where('status_transfer',2)->get();
-      $exp = transaction_payment::where('status_transfer',3)->get();
+      // $newquery = booking_detail::where('id_user',Auth::user()->id_user)->with('transaction_payment')->get();
+
+
+      $paid = transaction_payment::where('status_transfer',1)->with('booking_detail')->whereHas('booking_detail',function($query){
+        $query->where('id_user',Auth::user()->id_user);
+      });
+      $wait = transaction_payment::where('status_transfer',2)->with('booking_detail')->whereHas('booking_detail',function($query){
+        $query->where('id_user',Auth::user()->id_user);
+      });
+      $exp = transaction_payment::where('status_transfer',3)->with('booking_detail')->whereHas('booking_detail',function($query){
+        $query->where('id_user',Auth::user()->id_user);
+      });
       return view('transaction/ticket', [
-        'paid' =>$paid,
-        'wait' => $wait,
-        'exp' =>$exp
-        ] );
+        'paid' =>$paid->get(),
+        'wait' => $wait->get(),
+        'exp' =>$exp->get()
+
+        ]);
     }
     /**
      * Show the form for creating a new resource.

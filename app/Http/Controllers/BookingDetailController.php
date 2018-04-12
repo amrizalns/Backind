@@ -64,10 +64,8 @@ class BookingDetailController extends Controller
       }
 
       if ($request->input('tourism')) {
-        $tourism = $tourism_data->business_price;
-
+        // $tourism = $tourism_data->business_price;
         $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
-
         $id_booking = booking_detail::create([
           'id_tourism' => $request->input('tourism'),
           'id_homestay' => $request->input('homestay'),
@@ -81,10 +79,8 @@ class BookingDetailController extends Controller
 
         ]);
       }else{
-        $homestay = $homestay_data->business_price;
-
+        // $homestay = $homestay_data->business_price;
         $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
-
         $id_booking = booking_detail::create([
           'id_homestay' => $request->input('homestay'),
           'id_user' => Auth::user()->id_user,

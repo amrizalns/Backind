@@ -15,6 +15,7 @@
                       <span style="color:#ffffff;"><h4><strong>E-Ticket History</strong></h4></span>
                         <br>
                         <span style="color:#ffffff; font-size:small">
+                          
                           E-ticket history menampung semua riwatat tiket yang pernah anda pesan sebelumnya
                           semua tiket dari riwayat transaksi anda tersimpan disini,
                           anda tidak perlu khawatir untuk kehilangan tiket.

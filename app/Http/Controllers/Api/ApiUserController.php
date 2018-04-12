@@ -21,7 +21,7 @@ class ApiUserController extends Controller
       return response()->json($user);
     }
 
-    public function postDataUser(Request $request)
+    public function postUpdateDataUser(Request $request)
     {
       $user = User::find($request->id);
       if ($request->avatar) {

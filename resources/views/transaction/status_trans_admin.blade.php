@@ -32,7 +32,7 @@
           <tbody>
             @foreach ($status_admin as $index=>$x)
           <tr>
-            <td>#BACKIND2018{{$x->id_booking+100}}</td>
+            <td>{{$x}}</td>
             <td>
                 <table>
                     <tr>
