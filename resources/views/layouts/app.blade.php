@@ -8,30 +8,24 @@
     <!-- CSRF Token -->
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
-    <title>Backind Administrator</title>
 
     <!-- Styles -->
     <link href="{{ asset('css/app.css') }}" rel="stylesheet">
 </head>
-<body>
+<body style="background-color:#0091EA">
     <div id="app">
-        <nav class="navbar navbar-default navbar-static-top">
+      <div style="margin-top:10%; margin-bottom:2%">
+        <table>
+          <tr>
+            <td style="text-align:center; vertical-align:middle;">
+              <img src="{{asset('backind_white.png')}}" style="width:15%;">
+            </td>
+          </tr>
+        </table>
+      </div>
+        {{-- <nav class="navbar navbar-default navbar-static-top">
             <div class="container">
-                <div class="navbar-header">
 
-                    <!-- Collapsed Hamburger -->
-                    <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#app-navbar-collapse">
-                        <span class="sr-only">Toggle Navigation</span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                        <span class="icon-bar"></span>
-                    </button>
-
-                    <!-- Branding Image -->
-                    <a class="navbar-brand" >
-                        Backind Administrator
-                    </a>
-                </div>
 
                 <div class="collapse navbar-collapse" id="app-navbar-collapse">
                     <!-- Left Side Of Navbar -->
@@ -68,7 +62,7 @@
                     </ul>
                 </div>
             </div>
-        </nav>
+        </nav> --}}
 
         @yield('content')
     </div>

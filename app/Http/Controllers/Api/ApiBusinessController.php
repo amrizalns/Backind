@@ -23,4 +23,18 @@ class ApiBusinessController extends Controller
     $homestay = business::where('id_menu', 2)->get();
     return response()->json($homestay);
   }
+
+  public function getDetailBusiness($id, $id_business)
+  {
+    $menu = menu::find($id);
+    if ($id == 1) {
+      $business_details = business_detail::find($id_business);
+      $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+      return response()->json($hasil);
+    } elseif ($id == 2) {
+      $business_details = business_detail::find($id_business);
+      $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+      return response()->json($hasil);
+    }
+  }
 }
