@@ -120,7 +120,7 @@
                   </div>
                   <div class="row form-group {{ $errors->has('Business address') ? ' has-error' : '' }}">
                     <div class="col-lg-12">
-                      <div class="gllpMap col-lg-11" style="font-size" >Google Maps</div>
+                      <div class="gllpMap col-lg-11" style="font-size: medium" >Google Maps</div>
                       <input type="hidden" class="gllpZoom" value="4"/>
                     </div>
                   </div>
