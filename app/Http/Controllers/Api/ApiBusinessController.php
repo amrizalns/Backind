@@ -15,12 +15,12 @@ class ApiBusinessController extends Controller
 {
   public function getTourism()
   {
-    $tourism = business::where('id_menu', 1)->get();
+    $tourism = business::with('business_details')->where('id_menu', 1)->get();
     return response()->json($tourism);
   }
   public function getHomestay()
   {
-    $homestay = business::where('id_menu', 2)->get();
+    $homestay = business::with('business_details')->where('id_menu', 2)->get();
     return response()->json($homestay);
   }
 
