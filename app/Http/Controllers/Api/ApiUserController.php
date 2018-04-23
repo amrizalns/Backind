@@ -6,18 +6,25 @@ use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
 use App\User;
 use App\roles;
-use Auth;
+use Illuminate\Support\Facades\Auth;
+
 class ApiUserController extends Controller
 {
+
+    public function __construct()
+    {
+        $this->middleware("jwt.auth");
+    }
+
     public function getUser()
     {
       $user = User::all();
       return response()->json($user);
     }
 
-    public function getDataUser($id_user)
+    public function getDataUser()
     {
-      $user = User::find($id_user);
+      $user = Auth::user();
       return response()->json($user);
     }
 
