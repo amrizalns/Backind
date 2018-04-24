@@ -15,7 +15,7 @@
         </div>
         <!--Form Register-->
         <div class="card-body" style="font-size: small">
-          <form method="POST" action="{{route ('updateBusiness',['id'=>$business_details, 'id_menu' => $menu->id_menu])}}" enctype="multipart/form-data">
+          <form method="POST" action="{{route ('updateBusiness',['id'=>$business_details->id_business_details, 'id_menu' => $menu->id_menu])}}" enctype="multipart/form-data">
             {{ csrf_field() }}
             <input type="hidden" name="_method" value="put">
             <div class="form-group col-lg-12" style="font-size: small">

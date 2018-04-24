@@ -29,4 +29,10 @@ Route::group(['namespace'=> 'Api'], function(){
   Route::get('/getDetailBusiness/{id}/{id_business}','ApiBusinessController@getDetailBusiness');
 
   Route::post('/postAddBooking','ApiBookingController@store');
+
+  Route::get('/getUpdateCost/{booking_detail}','ApiBookingController@updateCost');
+  Route::get('/getNearby/{id}','ApiBusinessController@getNearby');
+  Route::get('/getMinBandung','ApiBusinessController@getMinBandung');
+  Route::get('/getMinKabBB','ApiBusinessController@getMinKabBB');
+  Route::get('/getMinKabBS','ApiBusinessController@getMinKabBS');
 });

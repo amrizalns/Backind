@@ -2,10 +2,6 @@
 
 namespace App\Http\Controllers\Api;
 
-use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Mail;
-use App\Http\Controllers\Controller;
-
 use App\booking_detail;
 use App\User;
 use App\business;
@@ -15,7 +11,12 @@ use App\Mail\Invoice;
 use Auth;
 use Storage;
 
-class ApiBookingController extends Controller
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
+use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api\ApiBaseController;
+
+class ApiBookingController extends ApiBaseController
 {
   public function store(Request $request)
   {
@@ -76,5 +77,22 @@ class ApiBookingController extends Controller
     }
     //return response()->json($id_booking);
     //return redirect(route('invoice', ['booking_detail'=>$id_booking]));
+  }
+
+  public function updateCost(booking_detail $booking_detail)
+  {
+    $total_cost = $booking_detail->total_cost - ($booking_detail->id_booking+100);
+    $booking_detail->total_cost = $total_cost;
+    $hasil = ['id_booking'=>$booking_detail];
+
+    if ($booking_detail->save()) {
+      return $this->baseResponse(false, 'berhasil', $hasil);
+    } else {
+      return $this->baseResponse(true, 'gagal membuat booking', $hasil);
+    }
+
+    //Mail::to('infobackind@gmail.com')->send(new Invoice($booking_detail));
+
+    //return redirect(route('invoice_final',['id_booking'=>$booking_detail]));
   }
 }

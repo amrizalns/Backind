@@ -144,10 +144,14 @@ class BusinessController extends Controller
     {
       $menu = menu::find($id);
       if ($id == 1) {
-      $business_details = business_detail::find($id_business);
+      $business_details = business_detail::with('pictures')->find($id_business);
+      // return $business_details;
+      // $business_details = business_detail::find($id_business);
       return view('business/edit_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id]);
     }elseif ($id == 2) {
-      $business_details = business_detail::find($id_business);
+      $business_details = business_detail::with('pictures')->find($id_business);
+      // return $business_details;
+      // $business_details = business_detail::find($id_business);
       return view('business/edit_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id]);
     }
     }

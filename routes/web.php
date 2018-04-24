@@ -58,4 +58,5 @@ Route::group(['middleware'=>['auth']], function(){
   //delete
   Route::post('userDelete','UserController@deleteUser');
   Route::post('delete','BusinessController@delete');
+
 });
