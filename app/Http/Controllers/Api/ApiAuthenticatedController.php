@@ -15,7 +15,7 @@ class ApiAuthenticatedController extends Controller
 {
     public function register(Request $request)
     {
-        $credentials = $request->only('name', 'email', 'password', 'id_roles', 'address', 'phone_number');
+        $credentials = $request->only('name', 'email', 'password', 'phone_number');
 
         $rules = ['name' => 'required|max:255',
             'email' => 'required|email|max:255|unique:users'];
@@ -27,12 +27,11 @@ class ApiAuthenticatedController extends Controller
         $name = $request->name;
         $email = $request->email;
         $password = $request->password;
-        $address = $request->address;
         $phone_number = $request->phone_number;
         $id_roles = $request->id_roles = 5;
 
         $user = User::create(['name' => $name, 'email' => $email, 'roles' => $id_roles, 'password' => Hash::make($password),
-            'address' => $address, 'phone_number' => $phone_number]);
+            'phone_number' => $phone_number]);
 //        $verification_code = str_random(30); //Generate verification code
 //        DB::table('user_verifications')->insert(['user_id' => $user->id, 'token' => $verification_code]);
 //        $subject = "Please verify your email address.";
