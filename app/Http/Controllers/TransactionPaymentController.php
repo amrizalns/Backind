@@ -17,6 +17,8 @@ class TransactionPaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     
+
     public function index_spAdmin()
     {
       return view('transaction/status_trans',['status_spadmin'=>booking_detail::all()]);
