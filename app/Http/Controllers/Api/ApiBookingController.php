@@ -8,16 +8,22 @@ use App\business;
 use App\business_detail;
 use App\transaction_payment;
 use App\Mail\Invoice;
-use Auth;
 use Storage;
+use JWTAuth;
 
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Mail;
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Api\ApiBaseController;
+use Illuminate\Support\Facades\Auth;
 
 class ApiBookingController extends ApiBaseController
 {
+
+  public function __construct()
+  {
+      $this->middleware("jwt.auth");
+  }
+
   public function store(Request $request)
   {
     $homestay_data = business_detail::find($request->input('homestay'));
@@ -71,9 +77,9 @@ class ApiBookingController extends ApiBaseController
     ]);
 
     if ($id_booking->save()) {
-      return $this->baseResponse(false, 'berhasil', null);
+      return $this->baseResponse(false, 'berhasil', $id_booking);
     } else {
-      return $this->baseResponse(true, 'gagal membuat booking', null);
+      return $this->baseResponse(true, 'gagal membuat booking', $id_booking);
     }
     //return response()->json($id_booking);
     //return redirect(route('invoice', ['booking_detail'=>$id_booking]));
@@ -86,13 +92,22 @@ class ApiBookingController extends ApiBaseController
     $hasil = ['id_booking'=>$booking_detail];
 
     if ($booking_detail->save()) {
+      Mail::to('infobackind@gmail.com')->send(new Invoice($booking_detail));
       return $this->baseResponse(false, 'berhasil', $hasil);
     } else {
-      return $this->baseResponse(true, 'gagal membuat booking', $hasil);
+      return $this->baseResponse(true, 'gagal update cost', $hasil);
     }
-
-    //Mail::to('infobackind@gmail.com')->send(new Invoice($booking_detail));
-
     //return redirect(route('invoice_final',['id_booking'=>$booking_detail]));
   }
+
+  public function invoice(booking_detail $id)
+  {
+    $inv = ['id_booking'=>$id];
+    if ($inv!=null) {
+      return $this->baseResponse(false, 'berhasil', $inv);
+    } else {
+      return $this->baseResponse(true, 'gagal tampil invoice', null);
+    }
+  }
+
 }

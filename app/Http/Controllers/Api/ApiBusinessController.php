@@ -25,19 +25,31 @@ class ApiBusinessController extends ApiBaseController
     return response()->json($homestay);
   }
 
-  public function getDetailBusiness($id, $id_business)
+  public function getDetailBusiness($id)
   {
     $menu = menu::find($id);
-    if ($id == 1) {
-      $business_details = business_detail::find($id_business);
-      $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+    if($id == 1){
+      $business_detail = business::with('business_details')->where('id_menu', 1)->get();
+      $hasil = ['business_details'=>$business_detail,'menu'=> $menu, 'id_usaha'=>$id ];
       return response()->json($hasil);
 
-    } elseif ($id == 2) {
-      $business_details = business_detail::find($id_business);
-      $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+    }elseif ($id == 2) {
+      $business_detail = business::with('business_details')->where('id_menu', 2)->get();
+      $hasil = ['business_details'=>$business_detail,'menu'=> $menu, 'id_usaha'=>$id ];
       return response()->json($hasil);
     }
+
+    // $menu = menu::find($id);
+    // if ($id == 1) {
+    //   $business_details = business_detail::find($id_business);
+    //   $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+    //   return response()->json($hasil);
+    //
+    // } elseif ($id == 2) {
+    //   $business_details = business_detail::find($id_business);
+    //   $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
+    //   return response()->json($hasil);
+    // }
   }
 
   public function getNearby(Request $request, $id)
@@ -63,13 +75,19 @@ class ApiBusinessController extends ApiBaseController
     FROM business_details a
     JOIN businesses b
     ON a.id_business_details = b.id_business_details
-    WHERE a.business_price < 1000000 AND b.id_menu=2
+    WHERE a.business_price < ('$price') AND b.id_menu=2
     HAVING distance < 5
     ORDER BY distance");
-    return $nearbyloc;
+    
+    if ($nearbyloc!=null) {
+      return $this->baseResponse(false, 'berhasil', $nearbyloc);
+    } else {
+      return $this->baseResponse(true, 'null', $nearbyloc);
+    }
+
   }
 
-  function getMinBandung()
+  public function getMinBandung()
   {
     $getMinBandung = DB::SELECT(
       "
@@ -90,7 +108,7 @@ class ApiBusinessController extends ApiBaseController
     }
   }
 
-  function getMinKabBB()
+  public function getMinKabBB()
   {
     $getMinKabBB = DB::SELECT(
       "
@@ -111,7 +129,7 @@ class ApiBusinessController extends ApiBaseController
     }
   }
 
-  function getMinKabBS()
+  public function getMinKabBS()
   {
     $getMinKabBS = DB::SELECT(
       "

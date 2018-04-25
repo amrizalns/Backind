@@ -20,19 +20,22 @@ Route::middleware('auth:api')->get('/user', function (Request $request) {
 Route::group(['namespace'=> 'Api'], function(){
   Route::post('/register','ApiAuthenticatedController@register');
   Route::post('/login','ApiAuthenticatedController@login');
-  Route::get('/getUser','ApiUserController@getUser');
+  // Route::get('/getUser','ApiUserController@getUser');
   Route::get('/getDataUser', 'ApiUserController@getDataUser');
   Route::post('/postUpdateDataUser','ApiUserController@postDataUser');
 
   Route::get('/getTourism','ApiBusinessController@getTourism');
   Route::get('/getHomestay','ApiBusinessController@getHomestay');
-  Route::get('/getDetailBusiness/{id}/{id_business}','ApiBusinessController@getDetailBusiness');
+  Route::get('/getDetailBusiness/{id}','ApiBusinessController@getDetailBusiness');
 
   Route::post('/postAddBooking','ApiBookingController@store');
+  Route::post('/postUpdateCost/{booking_detail}','ApiBookingController@updateCost');
+  Route::get('/getInvoice/{id}','ApiBookingController@invoice');
 
   Route::get('/getUpdateCost/{booking_detail}','ApiBookingController@updateCost');
-  Route::get('/getNearby/{id}','ApiBusinessController@getNearby');
+  Route::post('/getNearby/{id}','ApiBusinessController@getNearby');
   Route::get('/getMinBandung','ApiBusinessController@getMinBandung');
   Route::get('/getMinKabBB','ApiBusinessController@getMinKabBB');
   Route::get('/getMinKabBS','ApiBusinessController@getMinKabBS');
+  Route::get('/getTicketHistory','ApiTransactionController@getTickerHistory');
 });

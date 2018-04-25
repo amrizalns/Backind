@@ -16,11 +16,11 @@ class ApiUserController extends Controller
         $this->middleware("jwt.auth");
     }
 
-    public function getUser()
-    {
-      $user = User::all();
-      return response()->json($user);
-    }
+    // public function getUser()
+    // {
+    //   $user = User::all();
+    //   return response()->json($user);
+    // }
 
     public function getDataUser()
     {

@@ -74,6 +74,7 @@ class ApiAuthenticatedController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
         }
+        
         return response()->json(['success' => true, 'data' => ['token' => $token]]);
     }
 }

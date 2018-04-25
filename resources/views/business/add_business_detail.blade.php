@@ -275,7 +275,7 @@
                 <br><label style="font-size:small; color:#F44336">
                 <i>
                   (* masukkan 3 gambar untuk memberikan gambaran kepada calon pemesan usaha dari usaha yang sedang anda kelola *)<br>
-                  (* gambar 1 wajib diisi*)
+                  (* ke-3 gambar wajib diisi*)
                 </i></label>
               </label>
               <hr>
@@ -284,10 +284,10 @@
                 <input type='file' name="img" onchange="img1(this);" required/>
               </div>
               <div class="col-lg-4">
-                <input type='file' name="imgg" onchange="img2(this);"/>
+                <input type='file' name="imgg" onchange="img2(this);" required/>
               </div>
               <div class="col-lg-4">
-                <input type='file' name="imggg" onchange="img3(this);"/>
+                <input type='file' name="imggg" onchange="img3(this);" required/>
               </div>
               </div>
             </div>
