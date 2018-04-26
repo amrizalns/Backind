@@ -9,6 +9,7 @@ use App\business;
 use App\business_detail;
 use App\menu;
 use App\city;
+use DB;
 use App\business_picture;
 use Auth;
 use Storage;
@@ -159,12 +160,19 @@ class BusinessController extends Controller
     public function view($id, $id_business)
     {
       $menu = menu::find($id);
+      $tes_data_booking = DB::SELECT("
+      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at
+      FROM booking_details
+      INNER JOIN users ON booking_details.id_user = users.id_user
+      INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
+      WHERE booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')");
+        //return $tes_data_booking;
       if ($id == 1) {
         $business_details = business_detail::find($id_business);
-        return view('business/view_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id]);
+        return view('business/view_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id, 'booking_data'=>$tes_data_booking]);
       } elseif ($id == 2) {
         $business_details = business_detail::find($id_business);
-        return view('business/view_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id]);
+        return view('business/view_business',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id,'booking_data'=>$tes_data_booking]);
       }
 
     }
