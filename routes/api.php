@@ -34,8 +34,6 @@ Route::group(['namespace'=> 'Api'], function(){
 
   Route::get('/getUpdateCost/{booking_detail}','ApiBookingController@updateCost');
   Route::post('/getNearby/{id}','ApiBusinessController@getNearby');
-  Route::get('/getMinBandung','ApiBusinessController@getMinBandung');
-  Route::get('/getMinKabBB','ApiBusinessController@getMinKabBB');
-  Route::get('/getMinKabBS','ApiBusinessController@getMinKabBS');
+  Route::get('/getMinCity','ApiBusinessController@getMinCity');
   Route::get('/getTicketHistory','ApiTransactionController@getTickerHistory');
 });

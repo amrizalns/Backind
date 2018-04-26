@@ -118,6 +118,32 @@
           <i class="fa fa-bar-chart"></i>
           Statistik Penjualan Tiket
         </div>
+        <div>
+          <table>
+            <thead>
+              <tr>
+
+
+              <th>nama</th>
+              <th>statsus</th>
+
+              <th>created_at</th>
+            </tr>
+            </thead>
+            <tbody>
+              @foreach ($booking_data as $key)
+                <tr>
+
+
+                <td>{{$key->name}}</td>
+                <td>{{$key->status_transfer}}</td>
+
+                <td>{{$key->created_at}}</td>
+              </tr>
+              @endforeach
+            </tbody>
+          </table>
+        </div>
         <div class="card-body">
           <div class="row">
             <div class="col-sm-8 my-auto">

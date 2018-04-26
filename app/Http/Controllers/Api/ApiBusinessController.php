@@ -78,7 +78,7 @@ class ApiBusinessController extends ApiBaseController
     WHERE a.business_price < ('$price') AND b.id_menu=2
     HAVING distance < 5
     ORDER BY distance");
-    
+
     if ($nearbyloc!=null) {
       return $this->baseResponse(false, 'berhasil', $nearbyloc);
     } else {
@@ -87,9 +87,9 @@ class ApiBusinessController extends ApiBaseController
 
   }
 
-  public function getMinBandung()
+  public function getMinCity()
   {
-    $getMinBandung = DB::SELECT(
+    $getMinCity = DB::SELECT(
       "
       SELECT a.city, min(c.business_price)
       FROM cities a
@@ -98,55 +98,13 @@ class ApiBusinessController extends ApiBaseController
       JOIN business_details c
       ON (b.id_business_details = c.id_business_details)
       GROUP BY a.id_city
-      HAVING a.city ='Kota Bandung';
+      HAVING a.city = a.city;
       "
     );
-    if ($getMinBandung!=null) {
-      return $this->baseResponse(false, 'berhasil', $getMinBandung);
+    if ($getMinCity!=null) {
+      return $this->baseResponse(false, 'berhasil', $getMinCity);
     } else {
-      return $this->baseResponse(true, 'null', $getMinBandung);
-    }
-  }
-
-  public function getMinKabBB()
-  {
-    $getMinKabBB = DB::SELECT(
-      "
-      SELECT a.city, min(c.business_price)
-      FROM cities a
-      JOIN businesses b
-      ON (a.id_city = b.id_city)
-      JOIN business_details c
-      ON (b.id_business_details = c.id_business_details)
-      GROUP BY a.id_city
-      HAVING a.city ='Kab. Bandung Barat';
-      "
-    );
-    if ($getMinKabBB!=null) {
-      return $this->baseResponse(false, 'berhasil', $getMinKabBB);
-    } else {
-      return $this->baseResponse(true, 'null', $getMinKabBB);
-    }
-  }
-
-  public function getMinKabBS()
-  {
-    $getMinKabBS = DB::SELECT(
-      "
-      SELECT a.city, min(c.business_price)
-      FROM cities a
-      JOIN businesses b
-      ON (a.id_city = b.id_city)
-      JOIN business_details c
-      ON (b.id_business_details = c.id_business_details)
-      GROUP BY a.id_city
-      HAVING a.city ='Kab. Bandung Selatan';
-      "
-    );
-    if ($getMinKabBS!=null) {
-      return $this->baseResponse(false, 'berhasil', $getMinKabBS);
-    } else {
-      return $this->baseResponse(true, 'null', $getMinKabBS);
+      return $this->baseResponse(true, 'null', $getMinCity);
     }
   }
 }
