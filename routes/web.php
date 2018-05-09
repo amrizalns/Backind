@@ -49,6 +49,7 @@ Route::group(['middleware'=>['auth']], function(){
   Route::put('userEdit/update','UserController@updateUser');
   Route::post('userProfileEdit','UserController@updateProfileUser')->name('userProfileEdit');
   Route::put('businessUpdate/{id}/{id_menu}', 'BusinessController@update')->name('updateBusiness');
+
   Route::get('update_cost/{booking_detail}','BookingDetailController@update')->name('update_cost');
   Route::get('payment_conf/{transaction_payment}','TransactionPaymentController@update')->name('payment_conf');
   Route::put('updateDetailImage/{id}','BusinessController@updateDetailImage')->name('updateDetailImage');
@@ -59,4 +60,8 @@ Route::group(['middleware'=>['auth']], function(){
   Route::post('userDelete','UserController@deleteUser');
   Route::post('delete','BusinessController@delete');
 
+  //print
+  Route::get('printTransactionData/{id}/{id_business}','BusinessController@printTransactionData');
+  Route::get('printPaidTicket/{id}','TransactionPaymentController@printPaidTicket')->name('printPaidTicket');
+  Route::get('printWaitTicket/{id}','TransactionPaymentController@printWaitTicket')->name('printWaitTicket');
 });

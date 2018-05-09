@@ -17,7 +17,7 @@ class TransactionPaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-     
+
 
     public function index_spAdmin()
     {
@@ -38,7 +38,6 @@ class TransactionPaymentController extends Controller
 
     public function eticket(){
       // $newquery = booking_detail::where('id_user',Auth::user()->id_user)->with('transaction_payment')->get();
-
 
       $paid = transaction_payment::where('status_transfer',1)->with('booking_detail')->whereHas('booking_detail',function($query){
         $query->where('id_user',Auth::user()->id_user);
@@ -151,5 +150,25 @@ class TransactionPaymentController extends Controller
       $id_transaksi->save();
       alert()->success('Status transaksi berhasil diubah', 'Selamat')->persistent('Tutup');
       return redirect(route('status_trans_spadmin'));
+    }
+
+    public function printPaidTicket($id)
+    {
+      $paid = transaction_payment::where('status_transfer',1)->with('booking_detail')->whereHas('booking_detail',function($query) use($id){
+        $query->where('id_user',Auth::user()->id_user)->where('id_booking', $id);
+      });
+      return view('print/printPaidTicket', [
+        'paid' =>$paid->get()
+        ]);
+    }
+
+    public function printWaitTicket($id)
+    {
+      $wait = transaction_payment::where('status_transfer',2)->with('booking_detail')->whereHas('booking_detail',function($query) use($id){
+        $query->where('id_user',Auth::user()->id_user)->where('id_booking', $id);
+      });
+      return view('print/printWaitTicket', [
+        'wait' =>$wait->get()
+        ]);
     }
 }

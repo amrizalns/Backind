@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Api;
 
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api;
 use App\business;
 use App\business_detail;
 use App\menu;
@@ -54,7 +55,6 @@ class ApiBusinessController extends ApiBaseController
 
   public function getNearby(Request $request, $id)
   {
-
     $loc = business_detail::find($id);
     $lat = $loc->business_lat;
     $lang = $loc->business_lang;
@@ -70,8 +70,7 @@ class ApiBusinessController extends ApiBaseController
         + sin ( radians($lat) )
         * sin( radians( business_lat ) )
       )
-    )
-    AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu
+    ) AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu
     FROM business_details a
     JOIN businesses b
     ON a.id_business_details = b.id_business_details
@@ -79,10 +78,14 @@ class ApiBusinessController extends ApiBaseController
     HAVING distance < 5
     ORDER BY distance");
 
+    $result = [
+      'loc' => $loc,
+      'near' => $nearbyloc
+    ];
     if ($nearbyloc!=null) {
-      return $this->baseResponse(false, 'berhasil', $nearbyloc);
+      return $this->baseResponse(false, 'berhasil', $result);
     } else {
-      return $this->baseResponse(true, 'null', $nearbyloc);
+      return $this->baseResponse(true, 'null', 'null');
     }
 
   }

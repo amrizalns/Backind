@@ -67,7 +67,7 @@
               <label style="font-size: small">:</label>
             </div>
             <div class="col-lg-4">
-              <label style="font-size:small" >Rp. {{$business_details->business_price}}</label>
+              <label style="font-size:small" >Rp. {{number_format($business_details->business_price)}}</label>
             </div>
           </div>
 
@@ -108,7 +108,62 @@
           </div>
         </div>
       </div>
+    </div>
 
+    <div class="container-fluid">
+      <div class="card mb-3">
+        <div class="card-header">
+          <i class="fa fa-table"></i>
+          <span style="font-size:small">Data Transaksi {{$business_details->business_name}}</span>
+        </div>
+      <div class="card-body" style="font-size: small">
+      <div class="table-responsive" style="font-size: small">
+
+        <table class="table table-bordered" id="dataTable" cellspacing="0" style="font-size: small">
+              <thead>
+                <tr>
+                  <th>No</th>
+                  <th>Waktu Booking</th>
+                  <th>Nama Pemesan</th>
+                  <th>Checkin</th>
+                  <th>Status Pemesan</th>
+                </tr>
+              </thead>
+              <tbody>
+                @foreach ($booking_data as $i =>$key)
+                  <tr>
+                    <td>{{++$i}}</td>
+                    <td>{{$key->created_at}}</td>
+                    <td>{{$key->name}}</td>
+                    <td>{{$key->checkin}}</td>
+                    <td>@if ($key->status_transfer == 1)
+                      <div style="border-radius:15px; padding: 3px; background-color: #00C853; color:#ffffff">
+                        <span style="margin-left:15px">Pembayaran Terkonfirmasi</span>
+                      </div>
+                      @elseif($key->status_transfer == 2)
+                      <div style="border-radius:15px; padding: 3px; background-color: #FFD600; color:#ffffff">
+                        <span style="margin-left:15px">Menunggu Pembayaran</span>
+                      </div>
+                      @elseif($key->status_transfer == 3)
+                      <div style="border-radius:15px; padding: 3px; background-color: #D50000; color:#ffffff">
+                        <span style="margin-left:15px">Usang</span>
+                      </div>
+                      @endif
+                </td>
+
+                </tr>
+                @endforeach
+              </tbody>
+            </table>
+          </div>
+          <div class="col-lg-12; pull-right" style="margin-right:15px">
+            <br>
+            <a href="/printTransactionData/{{$business_details->business->id_menu}}/{{$business_details->id_business_details}}">
+              <button type="submit" class="btn btn-primary" name="button" style="font-size:small">Cetak</button>
+            </a>
+          </div>
+        </div>
+      </div>
     </div>
 
     <div class="col-lg">
@@ -117,32 +172,6 @@
         <div class="card-header">
           <i class="fa fa-bar-chart"></i>
           Statistik Penjualan Tiket
-        </div>
-        <div>
-          <table>
-            <thead>
-              <tr>
-
-
-              <th>nama</th>
-              <th>statsus</th>
-
-              <th>created_at</th>
-            </tr>
-            </thead>
-            <tbody>
-              @foreach ($booking_data as $key)
-                <tr>
-
-
-                <td>{{$key->name}}</td>
-                <td>{{$key->status_transfer}}</td>
-
-                <td>{{$key->created_at}}</td>
-              </tr>
-              @endforeach
-            </tbody>
-          </table>
         </div>
         <div class="card-body">
           <div class="row">

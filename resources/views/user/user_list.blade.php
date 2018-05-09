@@ -19,17 +19,19 @@
       <table class="table table-bordered" id="dataTable" cellspacing="0" style="font-size: small">
         <thead>
         <tr>
-            <th>Name</th>
+            <th>No</th>
+            <th>Nama</th>
             <th>Email</th>
-            <th>Address</th>
-            <th>Phone Number</th>
-            <th>Status</th>
-            <th><center>Actions</center></th>
+            <th>Alamat</th>
+            <th>Nomer Telepon</th>
+            <th>Status Pengguna</th>
+            <th><center>Aksi</center></th>
         </tr>
         </thead>
           <tbody>
-        @foreach ($users as $data)
+        @foreach ($users as $index=>$data)
           <tr>
+            <td>{{++$index}}</td>
             <td>{{$data->name}}</td>
             <td>{{$data->email}}</td>
             <td>{{$data->address}}</td>

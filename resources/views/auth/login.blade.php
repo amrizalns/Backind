@@ -40,8 +40,8 @@
             {{ csrf_field() }}
 
             <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-              <label for="exampleInputEmail1" style=" font-size:small;">Email address</label>
-              <input type="email" id="email" class="form-control" style=" font-size:small;" name="email" value="{{ old('email') }}" required autofocus placeholder="Enter email">
+              <label for="exampleInputEmail1" style=" font-size:small;">Alamat Email</label>
+              <input type="email" id="email" class="form-control" style=" font-size:small;" name="email" value="{{ old('email') }}" required autofocus placeholder="masukkan email">
               @if ($errors->has('email'))
                   <span class="help-block" style="color:red; font-size:small">
                       <strong>{{ $errors->first('email') }}</strong>
@@ -50,8 +50,8 @@
             </div>
 
             <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-              <label for="exampleInputPassword1" style=" font-size:small;">Password</label>
-              <input id="password" type="password" style=" font-size:small;" class="form-control" name="password" required placeholder="Password">
+              <label for="exampleInputPassword1" style=" font-size:small;">Kata Sandi</label>
+              <input id="password" type="password" style=" font-size:small;" class="form-control" name="password" required placeholder="masukkan kata sandi">
               @if ($errors->has('password'))
                   <span class="help-block" style="color:red; font-size:small">
                       <strong>{{ $errors->first('password') }}</strong>
@@ -66,7 +66,7 @@
                     <td>
                       <label class="form-check-label" style=" font-size:small;">
                         <input type="checkbox" style=" font-size:small;" class="form-check-input" name="remember" {{ old('remember') ? 'checked' : '' }}>
-                        Remember Password
+                        Ingat Kata Sandi
                       </label>
                     </td>
                   </tr>
@@ -75,22 +75,22 @@
             </div>
             <div>
                 <button type="submit" class="form-control btn btn-primary" style=" font-size:small;">
-                    Login
+                    Masuk
                 </button>
             </div>
             <div style="margin-top:10px">
               <table align="center">
                 <tr>
                   <td>
-                    <span style=" font-size:smaller">i don't have an account,  </span>
+                    <span style=" font-size:smaller">saya tidak memiliki akun,  </span>
                   </td>
                   <td>
-                    <a href="{{ route('register') }}" style=" font-size:smaller">register here</a>
+                     <a href="{{ route('register') }}" style=" font-size:smaller">daftar disini</a>
                   </td>
                 </tr>
                 <tr>
                   <td colspan="2">
-                    <center><a class="d-block small" href="{{ route('password.request') }}" style=" font-size:small;">Forgot Password ?</a></center>
+                    <center><a class="d-block small" href="{{ route('password.request') }}" style=" font-size:small;">Lupa Kata Sandi ?</a></center>
                   </td>
                 </tr>
               </table>
@@ -103,7 +103,7 @@
         <table align="center">
           <tr>
             <td>
-              <label style="color:#01579B; font-size:small;"><small>Copyright &copy; Backind 2017</small></label>
+              <label style="color:#01579B; font-size:small;"><small>Copyright &copy; Backind 2018</small></label>
             </td>
           </tr>
         </table>
