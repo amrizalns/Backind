@@ -190,7 +190,7 @@
                 <label style="font-size: small"> : </label>
               </td>
               <td valign="top" bgcolor="#EEEEEE" style="text-align: right; padding-right:10px">
-                <label style="font-size: small">(-) Rp. {{$id_booking->id_booking+100}}</label>
+                <label style="font-size: small">(+) Rp. {{$id_booking->id_booking+100}}</label>
               </td>
             </tr>
             <tr>
@@ -201,7 +201,7 @@
                 <label style="font-size: small"><strong> : </strong></label>
               </td>
               <td valign="top" style="text-align: right; padding-right:10px" bgcolor="#E0E0E0">
-                <label style="font-size: large; color:#039BE5"><strong>Rp. {{number_format($id_booking->total_cost - ($id_booking->id_booking+100))}}</strong></label>
+                <label style="font-size: large; color:#039BE5"><strong>Rp. {{number_format($id_booking->total_cost + ($id_booking->id_booking+100))}}</strong></label>
               </td>
             </tr>
             <tr>

@@ -161,7 +161,7 @@ class BusinessController extends Controller
     {
       $menu = menu::find($id);
       $tes_data_booking = DB::SELECT("
-      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at
+      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
       FROM booking_details
       INNER JOIN users ON booking_details.id_user = users.id_user
       INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
@@ -200,6 +200,7 @@ class BusinessController extends Controller
            alert()->success('Data usaha berhasil diubah', 'Selamat')->persistent('Tutup');
            return redirect()->route('businessDetail',['id'=>$id_menu]);
     }
+
 
     public function delete(Request $request)
     {
@@ -255,5 +256,18 @@ class BusinessController extends Controller
         $id_business->save();
         alert()->success('Status usaha berhasil diubah', 'Selamat')->persistent('Tutup');
         return redirect(route('businessList',['id_business' => $id_business->id_menu]));
+    }
+
+    public function printTransactionData($id, $id_business){
+      $menu = menu::find($id);
+      $tes_data_booking = DB::SELECT("
+      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
+      FROM booking_details
+      INNER JOIN users ON booking_details.id_user = users.id_user
+      INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
+      WHERE booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')");
+
+      $business_details = business_detail::find($id_business);
+      return view('print/printTransactionData',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id, 'booking_data'=>$tes_data_booking]);
     }
 }

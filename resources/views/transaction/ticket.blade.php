@@ -15,7 +15,7 @@
                       <span style="color:#ffffff;"><h4><strong>E-Ticket History</strong></h4></span>
                         <br>
                         <span style="color:#ffffff; font-size:small">
-                          
+
                           E-ticket history menampung semua riwatat tiket yang pernah anda pesan sebelumnya
                           semua tiket dari riwayat transaksi anda tersimpan disini,
                           anda tidak perlu khawatir untuk kehilangan tiket.
@@ -54,7 +54,6 @@
                         <span style="color:#757575;">{{date($data->booking_detail->checkout)}}</span>
                       </div>
                     </div>
-
                     @if ($data->booking_detail->checkin_tourism == !null)
                     <hr>
                     <span style="color:#424242; font-size:11pt"><strong>Nama Wisata : {{$data->booking_detail->tourism->business_details->business_name}}</strong></span>
@@ -73,7 +72,6 @@
                     <div class="col-lg-12">
                       <div style="border-radius:15px; padding: 3px; background-color: #00C853; color:#ffffff">
                         <span style="margin-left:15px">E-TICKET ISSUED</span>
-
                       </div>
                     </div>
                     <div class="col-lg-12" style="margin-top:10px">
@@ -289,7 +287,10 @@
                       <button type="button" class="btn btn-danger" data-dismiss="modal" style="color:#FFFFFF; font-size:small">Cancel</button>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-info">Kirim ulang ke email</button></td>
-                        <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
+
+                        <a href="{{route('printPaidTicket',['id'=> $data->booking_detail->id_booking])}}">
+                          <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
+                        </a>
                       </form>
                     </div>
                   </div>
@@ -558,7 +559,11 @@
                       <button type="button" class="btn btn-danger" data-dismiss="modal" style="color:#FFFFFF; font-size:small">Cancel</button>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-info">Kirim ulang ke email</button></td>
+
+                        <a href="{{route('printWaitTicket',['id'=> $data->booking_detail->id_booking])}}">
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
+                        </a>
+
                       </form>
                     </div>
                   </div>

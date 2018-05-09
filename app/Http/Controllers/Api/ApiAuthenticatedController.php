@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Api;
 use App\User;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Api;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Tymon\JWTAuth\Exceptions\JWTException;
@@ -74,7 +75,7 @@ class ApiAuthenticatedController extends Controller
             // something went wrong whilst attempting to encode the token
             return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
         }
-        
+
         return response()->json(['success' => true, 'data' => ['token' => $token]]);
     }
 }

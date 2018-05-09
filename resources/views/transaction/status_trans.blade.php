@@ -43,7 +43,7 @@
               @elseif($x->transaction_payment->status_transfer == 2)
                 <span style="font-size: small">Menungu Pembayaran</span>
               @elseif($x->transaction_payment->status_transfer == 3)
-                  <span style="font-size: small">Deactived</span>
+                  <span style="font-size: small">Usang</span>
             @endif
             </td>
 
@@ -52,7 +52,7 @@
                   <center><img src="{{asset('tick-inside-a-circle.svg')}}" alt="" style="width:30px"></center>
                 @elseif ($x->transaction_payment->bukti_transfer != null && $x->transaction_payment->status_transfer == 2)
                   <center><img src="{{asset('information.svg')}}" alt="" style="width:30px"></center>
-                  @else
+                @else
                     <center><img src="{{asset('cancel-symbol-inside-a-circle.svg')}}" alt="" style="width:30px"></center>
               @endif
             </td>

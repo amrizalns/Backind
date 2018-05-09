@@ -135,12 +135,12 @@ class BookingDetailController extends Controller
      */
     public function update(booking_detail $booking_detail)
     {
-      $total_cost = $booking_detail->total_cost - ($booking_detail->id_booking+100);
+      $total_cost = $booking_detail->total_cost + ($booking_detail->id_booking+100);
       $booking_detail->total_cost = $total_cost;
       $booking_detail->save();
 
 
-      Mail::to('infobackind@gmail.com')->send(new Invoice($booking_detail));
+      Mail::to(Auth::user()->email)->send(new Invoice($booking_detail));
 
       return redirect(route('invoice_final',['id_booking'=>$booking_detail]));
     }

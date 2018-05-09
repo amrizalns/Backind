@@ -9,7 +9,7 @@
 
   <meta name="description" content="">
   <meta name="author" content="">
-  <title>Register Account</title>
+  <title>Daftar Akun</title>
 
   <!-- Bootstrap core CSS -->
   <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
@@ -26,7 +26,7 @@
   <div class="container">
     <div class="card card-register mx-auto mt-5">
       <div class="card-header">
-        Register an Account
+        Daftar Akun
       </div>
     </div>
 
@@ -39,8 +39,8 @@
             {{-- -------------- --}}
             <div class="col-lg-6">
               <div class="form-group {{ $errors->has('name') ? ' has-error' : '' }}">
-                <label for="name" style="font-size:small">Name</label>
-                <input style="font-size:small" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Enter your name"required autofocus>
+                <label for="name" style="font-size:small">Nama</label>
+                <input style="font-size:small" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="masukkan nama lengkap"required autofocus>
                 @if ($errors->has('name'))
                   <span class="help-block">
                     <strong>{{ $errors->first('name') }}</strong>
@@ -48,8 +48,8 @@
                 @endif
               </div>
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
-                <label for="email" style="font-size:small">Email address</label>
-                <input style="font-size:small" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Enter email" required>
+                <label for="email" style="font-size:small">Alamat Email</label>
+                <input style="font-size:small" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="masukkan email" required>
 
                 @if ($errors->has('email'))
                   <span class="help-block">
@@ -58,8 +58,8 @@
                 @endif
               </div>
               <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
-                <label style="font-size:small" for="password">Password</label>
-                <input style="font-size:small" id="password" type="password" class="form-control" name="password" placeholder="Password" required>
+                <label style="font-size:small" for="password">Kata Sandi</label>
+                <input style="font-size:small" id="password" type="password" class="form-control" name="password" placeholder="masukkan kata sandi" required>
 
                 @if ($errors->has('password'))
                   <span class="help-block">
@@ -68,8 +68,8 @@
                 @endif
               </div>
               <div class="form-group" >
-                <label style="font-size:small" for="password-confirm" >Confirm Password</label>
-                <input style="font-size:small" id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="Confirm password" required>
+                <label style="font-size:small" for="password-confirm" >Ulangi Kata Sandi</label>
+                <input style="font-size:small" id="password-confirm" type="password" class="form-control" name="password_confirmation" placeholder="ulangi kata sandi" required>
               </div>
             </div>
 
@@ -79,8 +79,8 @@
 
             <div class="col-lg-6">
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label style="font-size:small" for="name">Address</label>
-                <input style="font-size:small" id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="Address" required autofocus>
+                <label style="font-size:small" for="name">Alamat</label>
+                <input style="font-size:small" id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="masukkan alamat" required autofocus>
 
                 @if ($errors->has('address'))
                   <span class="help-block">
@@ -89,8 +89,8 @@
                 @endif
               </div>
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
-                <label style="font-size:small" for="phone_number">Phone Number</label>
-                <input style="font-size:small" id="phone_number" type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" placeholder="Phone number"required autofocus>
+                <label style="font-size:small" for="phone_number">Nomer Telepon</label>
+                <input style="font-size:small" id="phone_number" type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" placeholder="masukkan nomer telepon"required autofocus>
                 @if ($errors->has('phone'))
                   <span class="help-block">
                     <strong>{{ $errors->first('phone') }}</strong>
@@ -101,8 +101,8 @@
 
             <div class="col-lg-12">
               <hr>
-              <button type="submit" class="btn btn-primary btn-block">
-                Register
+              <button type="submit" class="btn btn-primary btn-block" style="font-size:small">
+                Daftar
               </button>
             </div>
           </div>
@@ -110,7 +110,7 @@
         </div>
 
         <div class="text-center">
-        <a class="d-block small mt-3" href="/">Login Page</a>
+        <a class="d-block small mt-3" href="/" style="font-size:small">Halaman <i>Login</i></a>
         </div>
 
     </div>

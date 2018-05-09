@@ -28,6 +28,7 @@ class Invoice extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.invoice',['booking_detail' => $this->booking_detail]);
+      //return $this->markdown('emails.invoice',['booking_detail' => $this->booking_detail]);
+      return $this->from('official@backind.id')->markdown('emails.invoice',['booking_detail' => $this->booking_detail]);
     }
 }

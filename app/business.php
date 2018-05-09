@@ -23,7 +23,9 @@ class business extends Model
     public function menu(){
         return $this->belongsTo('App\menu', 'id_menu','id_menu');
     }
-
+    public function review(){
+        return $this->hasOne(review::class, 'id_business');
+    }
     public function user(){
         return $this->belongsTo('App\User','id_user','id_user');
     }

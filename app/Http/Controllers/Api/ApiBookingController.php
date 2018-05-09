@@ -38,7 +38,7 @@ class ApiBookingController extends ApiBaseController
       $total_price = $request->input('total_ticket') * ($homestay_data->business_price);
     }
 
-    if ($request->input('tourism')) {
+    if ($request->input('tourism') && $request->input('homestay')) {
       //$tourism = $tourism_data->business_price;
       $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
 
@@ -55,11 +55,22 @@ class ApiBookingController extends ApiBaseController
 
       ]);
 
-    }else{
-
+    }elseif ($request->input('tourism')){
       // $homestay = $homestay_data->business_price;
       $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
-
+      $id_booking = booking_detail::create([
+        'id_tourism' => $request->input('tourism'),
+        'id_user' => Auth::user()->id_user,
+        'checkin' => $request->input('checkin'),
+        'checkout' => $request->input('checkout'),
+        'checkin_tourism' => $request->input('checkin_tourism'),
+        'total_ticket' => $request->input('total_ticket'),
+        'total_cost' => $total_price,
+        'duedate' => $duedate
+      ]);
+    }elseif ($request->input('homestay')){
+      // $homestay = $homestay_data->business_price;
+      $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
       $id_booking = booking_detail::create([
         'id_homestay' => $request->input('homestay'),
         'id_user' => Auth::user()->id_user,
@@ -71,7 +82,6 @@ class ApiBookingController extends ApiBaseController
         'duedate' => $duedate
       ]);
     }
-
     transaction_payment::create([
       'id_booking' => $id_booking->id_booking
     ]);

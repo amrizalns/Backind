@@ -101,10 +101,14 @@
               <li>
                 <a href="#" style="font-size: small">Status Transaksi</a>
               </li>
-              <li style="margin-bottom:10px">
-                <a href="{{route('eticket')}}" style="font-size: small">E-Ticket</a>
-              </li>
             </ul>
+          </li>
+          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+            <a class="nav-link" href="{{route('eticket')}}">
+              <i class="fa fa-fw fa-tags"></i>
+              <span class="nav-link-text" style="font-size: small">
+                E-Ticket</span>
+            </a>
           </li>
         @endif
           @if (Auth::user()->id_roles == 2)
@@ -123,7 +127,7 @@
               </li>
             </ul>
           </li>
-          <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
+          {{-- <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Components">
             <a class="nav-link nav-link-collapse collapsed" data-toggle="collapse" href="#transaksi" data-parent="#exampleAccordion">
               <i class="fa fa-fw fa-tags"></i>
               <span class="nav-link-text" style="font-size: small">
@@ -137,7 +141,7 @@
                 <a href="#" style="font-size: small">Terkonfirmasi</a>
               </li>
             </ul>
-          </li>
+          </li> --}}
         @endif
         @if (Auth::user()->id_roles == 1)
           <li class="nav-item" data-toggle="tooltip" data-placement="right" title="Example Pages">
@@ -168,7 +172,7 @@
               <li>
                 <a href="{{route('status_trans_spadmin')}}" style="font-size: small">Semua Transaksi</a>
               </li>
-              <li>
+              {{-- <li>
                 <a href="#" style="font-size: small">Menunggu Pembayaran</a>
               </li>
               <li>
@@ -176,7 +180,7 @@
               </li>
               <li>
                 <a href="#" style="font-size: small">Usang</a>
-              </li>
+              </li> --}}
             </ul>
           </li>
         @endif
@@ -325,20 +329,20 @@
       <div class="modal-dialog" role="document">
         <div class="modal-content">
           <div class="modal-header">
-            <h5 class="modal-title" id="exampleModalLabel">Ready to Leave?</h5>
+            <h5 class="modal-title" id="exampleModalLabel">Apakah Anda Yakin Untuk Keluar?</h5>
             <button type="button" class="close" data-dismiss="modal" aria-label="Close">
               <span aria-hidden="true">&times;</span>
             </button>
           </div>
           <div class="modal-body" style="font-size:small">
-            Select "Logout" below if you are ready to end your current session.
+            Pilih "Keluar" jika anda ingin keluar dan mengakhiri <i>session</i> saat ini.
           </div>
           <div class="modal-footer">
-            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size:small">Cancel</button>
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" style="font-size:small">Batal</button>
             <a class="btn btn-danger" href="{{ route('logout') }}"
                 onclick="event.preventDefault();
                          document.getElementById('logout-form').submit();" style="font-size:small">
-                Logout
+                Keluar
             </a>
 
             <form id="logout-form" action="{{ route('logout') }}" method="POST" style="display: none;">

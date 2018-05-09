@@ -13,8 +13,8 @@ class review extends Model
       'rating'
     ];
 
-    public function menu(){
-        return $this->belongsTo(menu::class, 'id_menu');
+    public function business(){
+        return $this->belongsTo(business::class, 'id_business');
     }
 
     public function user(){
