@@ -74,4 +74,8 @@ class UserController extends Controller
         return redirect('userList');
     }
 
+//    public function showResetForm(){
+//        return view('auth.passwords.reset');
+//    }
+
 }

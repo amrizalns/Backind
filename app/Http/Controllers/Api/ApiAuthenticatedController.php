@@ -76,6 +76,14 @@ class ApiAuthenticatedController extends Controller
             return response()->json(['success' => false, 'error' => 'could_not_create_token'], 500);
         }
 
-        return response()->json(['success' => true, 'data' => ['token' => $token]]);
+        $user = User::where('email',$request->email)->with('roles')->first();
+
+        $respon = [
+            'error' => false,
+            'message' => "success",
+            'data' => compact('token','user')
+        ];
+
+        return response()->json($respon);
     }
 }
