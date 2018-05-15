@@ -58,6 +58,7 @@ class ApiBusinessController extends ApiBaseController
     $loc = business_detail::find($id);
     $lat = $loc->business_lat;
     $lang = $loc->business_lang;
+    $id = $loc->business->id_menu;
     $price = $request->input('business_price');
 
     $nearbyloc = DB::select("
@@ -70,11 +71,13 @@ class ApiBusinessController extends ApiBaseController
         + sin ( radians($lat) )
         * sin( radians( business_lat ) )
       )
-    ) AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu
+    ) AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu, c.rating
     FROM business_details a
     JOIN businesses b
     ON a.id_business_details = b.id_business_details
-    WHERE a.business_price < ('$price') AND b.id_menu=2
+    JOIN reviews c
+    ON b.id_business = c.id_business
+    WHERE a.business_price < ('$price') AND b.id_menu=('$id') AND c.id_business= c.id_business
     HAVING distance < 5
     ORDER BY distance");
 

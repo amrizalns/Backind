@@ -219,12 +219,12 @@
       <div style="padding-top:20px">
         <table width="100%">
           <tr>
-            <td>
+            {{-- <td>
               <a href="#" class="btn btn-warning btn-block" style="font-size:small; color:#FFFFFF;">
                 Batalkan Transaksi
               </a>
             </td>
-            <td width="2%"></td>
+            <td width="2%"></td> --}}
             <td>
               <a href="{{route('update_cost',['booking_detail'=>$id_booking])}}" class="btn btn-primary btn-block" style="font-size:small">
                 Lanjutkan Pembayaran
@@ -233,6 +233,33 @@
           </tr>
         </table>
       </div>
+
+      {{-- delete modal --}}
+      {{-- <div class="modal fade" id="deletePopUp{{$id_booking->id_booking}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="exampleModalLabel">Batalkan Transaksi</h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+              Apakah Anda yakin untuk membatalkan transaksi ?
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-secondary" data-dismiss="modal">Batalkan</button>
+              <form action="{{url('deleteBooking')}}" method="POST">
+                <input type="hidden" name="id_booking" value="{{$id_booking->id_booking}}">
+                <input type="hidden" name="id_transaksi" value="{{$id_booking->transaction_payment->id_transaksi}}">
+                <input type="hidden" name="_token" value="{{ csrf_token() }}">
+                <button type="submit" class="btn btn-danger">Hapus</button></td>
+              </form>
+            </div>
+          </div>
+        </div>
+      </div> --}}
+
       </form>
     </div>
   </div>

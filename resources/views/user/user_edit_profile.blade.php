@@ -33,7 +33,16 @@
                     <label style="font-size: small">Email</label>
                   </td>
                   <td><label style="font-size: small"> : </label></td>
-                  <td><input style="font-size:small" id="email" type="text" class="form-control" name="email" value="{{$users->email}}"></td>
+                  <td><input style="font-size:small" id="email" type="text" class="form-control" name="email" value="{{$users->email}}">
+                    {{-- @if ($errors->has('email'))
+                      @foreach ($errors->get('email') as $message)
+                        <span class="help-block" style="color:#D32F2F; font-size:small">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif --}}
+                  </td>
+
                 </tr>
                 {{-- <tr>
                   <td>

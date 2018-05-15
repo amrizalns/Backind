@@ -99,7 +99,7 @@
                 <a href="{{ URL::to('add_trans') }}" style="font-size: small">Buat Transaksi</a>
               </li>
               <li>
-                <a href="#" style="font-size: small">Status Transaksi</a>
+                <a href="{{route('status_trans_user')}}" style="font-size: small">Status Transaksi</a>
               </li>
             </ul>
           </li>
@@ -172,6 +172,9 @@
               <li>
                 <a href="{{route('status_trans_spadmin')}}" style="font-size: small">Semua Transaksi</a>
               </li>
+              <li>
+                <a href="#" style="font-size: small">Statistik Transaksi</a>
+              </li>
               {{-- <li>
                 <a href="#" style="font-size: small">Menunggu Pembayaran</a>
               </li>
@@ -195,7 +198,7 @@
           </li>
         </ul> --}}
         <ul class="navbar-nav ml-auto">
-          <li class="nav-item dropdown">
+          {{-- <li class="nav-item dropdown">
             <a class="nav-link dropdown-toggle mr-lg-2" href="#" id="messagesDropdown" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
               <i class="fa fa-fw fa-envelope" style="color:#FFFFFF"></i>
               <span class="d-lg-none">Messages
@@ -280,7 +283,7 @@
                 View all alerts
               </a>
             </div>
-          </li>
+          </li> --}}
           <!-- <li class="nav-item">
             <form class="form-inline my-2 my-lg-0 mr-lg-2">
               <div class="input-group">
@@ -295,8 +298,8 @@
           </li> -->
               <li class="nav-item" >
                   <a href="#" class="nav-link" data-toggle="modal" data-target="#exampleModal">
-                  <i class="fa fa-fw fa-user-o" style="color:#FFFFFF"></i>
-                  <span style="font-size: small; color:#FFFFFF">{{ Auth::user()->name }}</span>
+                  <i class="fa fa-fw fa-sign-out" style="color:#FFFFFF"></i>
+                  <span style="font-size: small; color:#FFFFFF">Keluar</span>
                   </a>
               </li>
           </ul>

@@ -28,6 +28,6 @@ class agreement extends Mailable
      */
     public function build()
     {
-        return $this->markdown('emails.agreement');
+        return $this->from('official@backind.id')->markdown('emails.agreement');
     }
 }

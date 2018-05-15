@@ -32,7 +32,6 @@ Route::group(['namespace'=> 'Api'], function(){
   Route::post('/postUpdateCost/{booking_detail}','ApiBookingController@updateCost');
   Route::get('/getInvoice/{id}','ApiBookingController@invoice');
 
-  Route::get('/getUpdateCost/{booking_detail}','ApiBookingController@updateCost');
   Route::post('/getNearby/{id}','ApiBusinessController@getNearby');
   Route::get('/getMinCity','ApiBusinessController@getMinCity');
   Route::get('/getTicketHistory','ApiTransactionController@getTickerHistory');

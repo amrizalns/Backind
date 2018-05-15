@@ -38,7 +38,14 @@
                   <label style="font-size: small"> : </label>
                 </div>
                 <div class="col-lg-3">
-                  <input type="file" name="bus_pict" multiple id="gallery-photo-add"></input>
+                  <input type="file" name="bus_pict" value="{{$business_details->business_profile_pict}}" multiple id="gallery-photo-add"></input>
+                  @if ($errors->has('bus_pict'))
+                    @foreach ($errors->get('bus_pict') as $message)
+                      <span class="help-block" style="color:#D32F2F">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @endforeach
+                  @endif
                 </div>
               </div>
               <hr>
@@ -57,9 +64,11 @@
                     <div class="col-lg-7">
                       <input style="font-size: small" id="name" type="text" class="form-control" name="name" value="{{$business_details->business_name}}" placeholder="Masukkan nama bisnis anda"required autofocus>
                       @if ($errors->has('name'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('name') }}</strong>
-                        </span>
+                        @foreach ($errors->get('name') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -72,11 +81,12 @@
                     </div>
                     <div class="col-lg-7">
                       <input style="font-size: small" id="email" type="email" class="form-control" name="email" value="{{$business_details->business_email}}" placeholder="Masukkan email bisnis anda" required>
-
                       @if ($errors->has('email'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('email') }}</strong>
-                        </span>
+                        @foreach ($errors->get('email') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -119,6 +129,13 @@
                     </div>
                     <div class="col-lg-7">
                       <input readonly style="font-size: small" type="text" id="latShow" name="lat" class="gllpLatitude form-control" placeholder="Latitude" required value="{{$business_details->business_lat}}"/>
+                      @if ($errors->has('lat'))
+                        @foreach ($errors->get('lat') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                   <div class="row form-group {{ $errors->has('Business lang') ? ' has-error' : '' }}">
@@ -130,6 +147,13 @@
                     </div>
                     <div class="col-lg-7">
                       <input readonly style="font-size: small" type="text" id="lngShow" name="lang" class="gllpLongitude form-control" placeholder="Longitude" required value="{{$business_details->business_lang}}"/>
+                      @if ($errors->has('lang'))
+                        @foreach ($errors->get('lang') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                   </div>
@@ -144,11 +168,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="phone_number" type="number" class="form-control" name="phone" value="{{$business_details->business_phone}}" placeholder="Masukkan no telefon bisnis anda "required autofocus>
+                      <input style="font-size: small" id="phone_number" type="number" class="form-control" min="0" minlength="10" maxlength="13" name="phone" value="{{$business_details->business_phone}}" placeholder="Masukkan no telefon bisnis anda "required autofocus>
                       @if ($errors->has('phone'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('phone') }}</strong>
-                        </span>
+                        @foreach ($errors->get('phone') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -182,11 +208,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="price" type="number" class="form-control" name="price" value="{{$business_details->business_price}}" placeholder="(IDR) rentang harga tiket" required autofocus>
+                      <input style="font-size: small" id="price" type="number" class="form-control" min="0" minlength="5" maxlength="7" name="price" value="{{$business_details->business_price}}" placeholder="(IDR) rentang harga tiket" required autofocus>
                       @if ($errors->has('price'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('price') }}</strong>
-                        </span>
+                        @foreach ($errors->get('price') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -212,7 +240,14 @@
                     <label for="name" style="font-size: small">:</label>
                   </div>
                   <div class="col-lg-7">
-                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" name="desc" value=""required autofocus>{{$business_details->business_desc}}</textarea>
+                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" maxlength="500" name="desc" value=""required autofocus>{{$business_details->business_desc}}</textarea>
+                    @if ($errors->has('desc'))
+                      @foreach ($errors->get('desc') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 </div>
@@ -301,12 +336,33 @@
                 <input type='file' name="img" onchange="img1(this);"/>
                 @if ($business_details->pictures[0])
                   <input type="hidden" name="id_img" value="{{$business_details->pictures[0]->id_business_pictures}}">
+                  @if ($errors->has('img'))
+                    @foreach ($errors->get('img') as $message)
+                      <span class="help-block" style="color:#D32F2F">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @endforeach
+                  @endif
                 @endif
                 @if ($business_details->pictures[1])
                   <input type="hidden" name="id_imgg" value="{{$business_details->pictures[1]->id_business_pictures}}">
+                  @if ($errors->has('imgg'))
+                    @foreach ($errors->get('imgg') as $message)
+                      <span class="help-block" style="color:#D32F2F">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @endforeach
+                  @endif
                 @endif
                 @if ($business_details->pictures[2])
                   <input type="hidden" name="id_imggg" value="{{$business_details->pictures[2]->id_business_pictures}}">
+                  @if ($errors->has('imggg'))
+                    @foreach ($errors->get('imggg') as $message)
+                      <span class="help-block" style="color:#D32F2F">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @endforeach
+                  @endif
                 @endif
                 <img id="img" src="#" alt="  Gambar 1" style="max-width:300px; max-height:200px; border: 1px solid #ddd; border-radius: 4px; padding: 5px; margin-top:10px"/>
               </div>

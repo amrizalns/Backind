@@ -17,9 +17,9 @@ class CreateReviewsTable extends Migration
             $table->increments('id_review');
             $table->integer('id_business')->unsigned();
             $table->integer('id_user')->unsigned();
-            $table->string('review');
-            $table->string('response');
-            $table->integer('rating');
+            $table->string('review')->nullable();
+            $table->string('response')->nullable();
+            $table->integer('rating')->nullable();
             $table->timestamps();
 
             $table->foreign('id_business')->references('id_business')->on('businesses')->onDelete('cascade')->onUpdate('cascade');

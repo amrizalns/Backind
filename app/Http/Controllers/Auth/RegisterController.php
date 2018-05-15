@@ -50,10 +50,10 @@ class RegisterController extends Controller
         return Validator::make($data, [
             'id_roles'=>'5',
             'name' => 'required|string|max:255',
-            'email' => 'required|string|email|max:255|unique:users',
+            'email' => 'required|string|email|max:255|unique:users,email',
             'password' => 'required|string|min:6|confirmed',
             'address' => 'required|string|max:255',
-            'phone_number' => 'required|string|max:13',
+            'phone_number' => 'required|numeric',
 
         ]);
     }
@@ -74,5 +74,6 @@ class RegisterController extends Controller
             'address' => $data['address'],
             'phone_number' => $data['phone_number'],
         ]);
+        alert()->success('Registrasi Berhasil !', 'Selamat')->persistent('Tutup');
     }
 }
