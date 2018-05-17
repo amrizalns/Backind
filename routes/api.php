@@ -41,5 +41,6 @@ Route::group(['namespace'=> 'Api'], function(){
   Route::get('/getTicketHistory','ApiTransactionController@getTickerHistory');
 
   Route::post('postReview', 'ApiReviewController@postreview')->middleware('jwt.auth');
+
   Route::get('showReview/{id}', 'ApiReviewController@showreview');
 });

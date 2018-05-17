@@ -19,12 +19,15 @@ class ApiReviewController extends ApiBaseController
             'response' => $request->input('response'),
             'rating' => $request->input('rating'),
         ]);
-        if ($review->save()){
+
+        $result = $review->save();
+        if ($result){
             return $this->baseResponse(false, 'berhasil', $review);
         } else {
             return $this->baseResponse(true, 'gagal membuat review', $review);
         }
     }
+
 
     public function showreview($id){
         $review = review::with('business', 'user')->where('id_business',$id)->get();
