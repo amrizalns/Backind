@@ -8,6 +8,7 @@ use App\business;
 use App\menu;
 use Alert;
 use Auth;
+use Session;
 
 class HomeController extends Controller
 {
@@ -28,13 +29,19 @@ class HomeController extends Controller
      */
     public function home()
     {
-        $businessTourism = business::where('id_menu', 1)->get();
-        $businessHomestay = business::where('id_menu', 2)->get();
+        $TActive = business::where([['id_menu', 1],['business_status', 1]])->get();
+        $TPending = business::where([['id_menu', 1],['business_status', 2]])->get();
+        $HActive = business::where([['id_menu', 2],['business_status', 1]])->get();
+        $HPending = business::where([['id_menu', 2],['business_status', 2]])->get();
+
         Alert::success('Hi, '.Auth::user()->name.' selamat datang di Backind, platform pencarian tempat wisata dan pengelolaan usaha sektor pariwisata yang belum pernah ada sebelumnya.', 'Selamat Datang')->autoclose(3000);
+
         return view('home',[
-          'tourismData' => $businessTourism,
-          'homestayData' => $businessHomestay
-        ]);
+          'TActive' => $TActive,
+          'TPending' => $TPending,
+          'HActive' =>$HActive,
+          'HPending' => $HPending
+        ])->with('success', 'You are successfully logged in');
     }
 
     public function pagenotfound()

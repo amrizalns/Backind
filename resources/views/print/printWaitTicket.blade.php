@@ -81,7 +81,7 @@
               <td><label style="font-size:small">Booking ID : #BACKIND2018{{$data->booking_detail->id_booking+100}}</label></td>
             </tr>
             <tr>
-              <td><label style="font-size:small">Date : {{$data->booking_detail->created_at}}</label></td>
+              <td><label style="font-size:small">Booking Date : {{$data->booking_detail->created_at}}</label></td>
             </tr>
           </table>
         </td>

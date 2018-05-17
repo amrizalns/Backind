@@ -61,7 +61,14 @@
                           }
                       }
                     </script>
-                    <input type="file" name="bukti_transfer" onchange="bukti(this);" value="">
+                    <input type="file" name="bukti_transfer" onchange="bukti(this);" value="" required>
+                    @if ($errors->has('bukti_transfer'))
+                      @foreach ($errors->get('bukti_transfer') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                 </td>
                 <td>
                   <button type="submit" name="button" class="btn btn-primary btn-block" style="font-size:small">
@@ -161,17 +168,12 @@
             <br>
             <table width="100%">
               <tr>
-                <td width="33.3%">
-                  <a href="#" class="btn btn-danger btn-block" style="font-size:small; color:#ffffff;">
-                    Batalkan Transaksi
-                  </a>
-                </td>
-                <td width="33.3%">
+                <td width="40%">
                   <a href="{{route('index')}}" class="btn btn-warning btn-block" style="font-size:small; color:#ffffff">
                     Nanti
                   </a>
                 </td>
-                <td width="33.3%">
+                <td width="60%">
                   <a href="{{route('payment_conf',['transaction_payment'=>$booking_detail->transaction_payment->id_transaksi])}}" class="btn btn-primary btn-block" style="font-size:small">
                     Selesai
                   </a>

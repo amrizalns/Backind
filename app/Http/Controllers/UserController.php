@@ -3,7 +3,9 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Mail;
 
+use App\Mail\agreement;
 use App\User;
 use App\roles;
 use Auth;
@@ -48,6 +50,11 @@ class UserController extends Controller
 
     public function updateProfileUser(Request $request){
         // $user = User::where('id_user',Auth::user->id_user);\
+
+        // $this->validate($request, [
+        //     'email' => 'unique:users,email'
+        // ]);
+
         $user = User::find($request->id);
         if ($request->avatar) {
           $path=$request->avatar->store('avatar', 'public');
@@ -73,9 +80,15 @@ class UserController extends Controller
         $user->delete();
         return redirect('userList');
     }
+    
+    public function agreement()
+    {
+        Mail::to(Auth::user()->email)->send(new agreement());
+        Alert::info('cek email anda untuk melihat kiriman berkas kerjasama awal !', 'Info')->persistent('Tutup');
+        return redirect('/add_trans');
 
+    }
 //    public function showResetForm(){
 //        return view('auth.passwords.reset');
 //    }
-
 }

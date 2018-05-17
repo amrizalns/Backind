@@ -34,9 +34,10 @@ Route::group(['middleware'=>['auth']], function(){
   Route::get('invoice/{booking_detail}','BookingDetailController@invoice')->name('invoice');
   Route::get('invoice_final/{id_booking}','TransactionPaymentController@invoice_final')->name('invoice_final');
   Route::get('status_trans_spadmin','TransactionPaymentController@index_spAdmin')->name('status_trans_spadmin');
-  Route::get('status_trans_admin','TransactionPaymentController@index_Admin')->name('status_trans_admin');
+  Route::get('status_trans_user','TransactionPaymentController@index_user')->name('status_trans_user');
   Route::get('eticket','TransactionPaymentController@eticket')->name('eticket');
 
+  Route::get('agreement','UserController@agreement')->name('agreement');
   //insert
   Route::post('businessInsert/{id}','BusinessController@insertBusiness')->name('insertBusiness');
   Route::post('list_booking','BookingDetailController@store')->name('list_booking');
@@ -58,12 +59,16 @@ Route::group(['middleware'=>['auth']], function(){
   Route::put('uploadBukti','TransactionPaymentController@uploadBukti')->name('uploadBukti');
   Route::post('businessStatus/{id_business}','BusinessController@editStatus')->name('businessStatus');
   Route::post('transactionStatus/{id_transaksi}','TransactionPaymentController@editStatusTransaksi')->name('transactionStatus');
+
   //delete
   Route::post('userDelete','UserController@deleteUser');
-  Route::post('delete','BusinessController@delete');
+  Route::post('delete','BusinessController@deleteBusiness');
+  Route::post('deleteBooking','TransactionPaymentController@deleteBooking');
+  Route::post('deleteBookingSpAdmin','TransactionPaymentController@deleteBookingSpAdmin');
 
   //print
   Route::get('printTransactionData/{id}/{id_business}','BusinessController@printTransactionData');
   Route::get('printPaidTicket/{id}','TransactionPaymentController@printPaidTicket')->name('printPaidTicket');
   Route::get('printWaitTicket/{id}','TransactionPaymentController@printWaitTicket')->name('printWaitTicket');
+  Route::get('printExpTicket/{id}','TransactionPaymentController@printExpTicket')->name('printExpTicket');
 });

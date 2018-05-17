@@ -17,20 +17,24 @@ class TransactionPaymentController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
-
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
 
     public function index_spAdmin()
     {
-      return view('transaction/status_trans',['status_spadmin'=>booking_detail::all()]);
+      return view('transaction/status_trans_spadmin',['status_spadmin'=>booking_detail::all()]);
     }
 
-    public function index_Admin()
+    public function index_user()
     {
-      $data = business::where('id_user',Auth::user()->id_user)->with(['booking_tourism','booking_homestay'])->get();
-      //$data = Auth::user()->business()->with(['booking_tourism','booking_homestay'])->get();
-      return view('transaction/status_trans_admin',['status_admin'=>$data]);
-    }
+      $data = booking_detail::where('id_user',Auth::user()->id_user)->with(['transaction_payment'])->get();
+      // $data = Auth::user()->business()->with(['booking_tourism','booking_homestay'])->get();
 
+      // return $data;
+      return view('transaction/status_trans_user',['status_user'=>$data]);
+    }
     public function invoice_final(booking_detail $id_booking)
     {
       return view('transaction/payment_method', ['booking_detail'=>$id_booking]);
@@ -117,7 +121,7 @@ class TransactionPaymentController extends Controller
       // $transaction_payment->bukti_transfer = $path;
       // $transaction_payment->save();
       //
-      return redirect(route('index'));
+      return redirect(route('status_trans_user'));
     }
 
     /**
@@ -132,6 +136,9 @@ class TransactionPaymentController extends Controller
     }
     public function uploadBukti(Request $request, transaction_payment $transaction_payment)
     {
+      $this->validate($request, [
+          'bukti_transfer' => 'required|mimes:png,jpg,jpeg|max:5120',
+      ]);
 
       $transaction_payment = transaction_payment::find($request->id_transaksi);
       $path = $request->bukti_transfer->store('bukti_tf','public');
@@ -152,6 +159,24 @@ class TransactionPaymentController extends Controller
       return redirect(route('status_trans_spadmin'));
     }
 
+    public function deleteBooking(Request $request)
+    {
+      $booking_detail = booking_detail::where('id_booking', $request->id_booking)->delete();
+      $transaction_payment = transaction_payment::where('id_transaksi', $request->id_transaksi)->delete();
+
+      alert()->success('Data berhasil dihapus', 'Selamat')->persistent('Tutup');
+      return redirect('status_trans_user');
+    }
+
+    public function deleteBookingSpAdmin(Request $request)
+    {
+      $booking_detail = booking_detail::where('id_booking', $request->id_booking)->delete();
+      $transaction_payment = transaction_payment::where('id_transaksi', $request->id_transaksi)->delete();
+
+      alert()->success('Data berhasil dihapus', 'Selamat')->persistent('Tutup');
+      return redirect('status_trans_spadmin');
+    }
+
     public function printPaidTicket($id)
     {
       $paid = transaction_payment::where('status_transfer',1)->with('booking_detail')->whereHas('booking_detail',function($query) use($id){
@@ -169,6 +194,15 @@ class TransactionPaymentController extends Controller
       });
       return view('print/printWaitTicket', [
         'wait' =>$wait->get()
+        ]);
+    }
+    public function printExpTicket($id)
+    {
+      $exp = transaction_payment::where('status_transfer',3)->with('booking_detail')->whereHas('booking_detail',function($query) use($id){
+        $query->where('id_user',Auth::user()->id_user)->where('id_booking', $id);
+      });
+      return view('print/printExpTicket', [
+        'exp' =>$exp->get()
         ]);
     }
 }

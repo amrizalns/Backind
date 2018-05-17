@@ -52,7 +52,14 @@
                   <label style="font-size: small"> : </label>
                 </div>
                 <div class="col-lg-3">
-                  <input type="file" name="bus_pict" id="gallery-photo-add"></input>
+                  <input type="file" name="bus_pict" id="gallery-photo-add" required></input>
+                  @if ($errors->has('bus_pict'))
+                    @foreach ($errors->get('bus_pict') as $message)
+                      <span class="help-block" style="color:#D32F2F">
+                        <strong>{{ $message }}</strong>
+                      </span>
+                    @endforeach
+                  @endif
                 </div>
               </div>
               <hr>
@@ -69,11 +76,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Masukkan nama bisnis anda"required autofocus>
+                      <input style="font-size: small" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="Masukkan nama usaha anda"required autofocus>
                       @if ($errors->has('name'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('name') }}</strong>
-                        </span>
+                        @foreach ($errors->get('name') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -85,12 +94,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Masukkan email bisnis anda" required>
-
+                      <input style="font-size: small" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="Masukkan email usaha anda" required>
                       @if ($errors->has('email'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('email') }}</strong>
-                        </span>
+                        @foreach ($errors->get('email') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -104,7 +114,14 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" type="text" class="form-control gllpSearchField" name="address" placeholder="Masukkan alamat">
+                      <input style="font-size: small" type="text" class="form-control gllpSearchField" name="address" placeholder="Masukkan alamat" required>
+                      @if ($errors->has('address'))
+                        @foreach ($errors->get('address') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                   <div class="row form-group {{ $errors->has('Business address') ? ' has-error' : '' }}">
@@ -133,6 +150,13 @@
                     </div>
                     <div class="col-lg-7">
                       <input readonly style="font-size: small" type="text" id="latShow" name="lat" class="gllpLatitude form-control" placeholder="Latitude" required/>
+                      @if ($errors->has('lat'))
+                        @foreach ($errors->get('lat') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                   <div class="row form-group {{ $errors->has('Business lang') ? ' has-error' : '' }}">
@@ -144,6 +168,13 @@
                     </div>
                     <div class="col-lg-7">
                       <input readonly style="font-size: small" type="text" id="lngShow" name="lang" class="gllpLongitude form-control" placeholder="Longitude" required/>
+                      @if ($errors->has('lang'))
+                        @foreach ($errors->get('lang') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
+                      @endif
                     </div>
                   </div>
                   </div>
@@ -158,11 +189,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="phone_number" type="number" class="form-control" name="phone" value="{{ old('phone_number') }}" placeholder="Masukkan no telefon bisnis anda "required autofocus>
+                      <input style="font-size: small" id="phone_number" type="text" class="form-control" name="phone" min="0" minlength="10" maxlength="13" value="{{ old('phone') }}" placeholder="Masukkan no telefon bisnis anda "required autofocus>
                       @if ($errors->has('phone'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('phone') }}</strong>
-                        </span>
+                        @foreach ($errors->get('phone') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -196,11 +229,13 @@
                       <label for="name" style="font-size: small">:</label>
                     </div>
                     <div class="col-lg-7">
-                      <input style="font-size: small" id="price" type="number" class="form-control" name="price" value="" placeholder="(IDR) rentang harga tiket" required autofocus>
+                      <input style="font-size: small" id="price" type="number" class="form-control" name="price" min="0" minlength="5" maxlength="7" value="" placeholder="(IDR) rentang harga tiket" required autofocus>
                       @if ($errors->has('price'))
-                        <span class="help-block">
-                          <strong>{{ $errors->first('price') }}</strong>
-                        </span>
+                        @foreach ($errors->get('price') as $message)
+                          <span class="help-block" style="color:#D32F2F">
+                            <strong>{{ $message }}</strong>
+                          </span>
+                        @endforeach
                       @endif
                     </div>
                   </div>
@@ -226,7 +261,14 @@
                     <label for="name" style="font-size: small">:</label>
                   </div>
                   <div class="col-lg-7">
-                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" name="desc" value="" placeholder="Masukkan Deskripsi Bisnis ( maksimal 500 huruf )"required autofocus></textarea>
+                    <textarea rows="13"style="font-size: small" id="desc" type="text" class="form-control" maxlength="500" name="desc" value="" placeholder="Masukkan Deskripsi Bisnis ( maksimal 500 huruf )"required autofocus></textarea>
+                    @if ($errors->has('desc'))
+                      @foreach ($errors->get('desc') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 </div>
@@ -282,12 +324,33 @@
               <div class="row form-group {{ $errors->has('Business image') ? ' has-error' : '' }}">
               <div class="col-lg-4">
                 <input type='file' name="img" onchange="img1(this);" required/>
+                @if ($errors->has('img'))
+                  @foreach ($errors->get('img') as $message)
+                    <span class="help-block" style="color:#D32F2F">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
+                @endif
               </div>
               <div class="col-lg-4">
                 <input type='file' name="imgg" onchange="img2(this);" required/>
+                @if ($errors->has('imgg'))
+                  @foreach ($errors->get('imgg') as $message)
+                    <span class="help-block" style="color:#D32F2F">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
+                @endif
               </div>
               <div class="col-lg-4">
                 <input type='file' name="imggg" onchange="img3(this);" required/>
+                @if ($errors->has('imggg'))
+                  @foreach ($errors->get('imggg') as $message)
+                    <span class="help-block" style="color:#D32F2F">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
+                @endif
               </div>
               </div>
             </div>

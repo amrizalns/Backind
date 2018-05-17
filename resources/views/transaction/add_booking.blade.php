@@ -158,7 +158,7 @@
                 <td colspan="7" align="right">
                   <br>
                   <label style="font-size: small"> Data anda sudah benar ? </label>
-                  <a href="#">
+                  <a href="{{route('editProfileUser',['id'=>Auth::user()->id_user])}}">
                     <label style="font-size: small"> ubah data. </label>
                   </a>
                 </td>
@@ -186,7 +186,14 @@
                     <label style="font-size: small"> : </label>
                   </div>
                   <div class="col-lg-6">
-                    <input style="font-size: small" id="checkin" type="date" class="form-control" name="checkin" value="" />
+                    <input style="font-size: small" id="checkin" type="date" min='<?php echo date("Y-m-d", strtotime('+0 hours')); ?>' max='<?php echo date("Y-m-d", strtotime('+2184 hours')); ?>' class="form-control" name="checkin" value=""/>
+                    @if ($errors->has('checkin'))
+                      @foreach ($errors->get('checkin') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 <div class="row" style="margin-top:1%">
@@ -197,7 +204,14 @@
                     <label style="font-size: small"> : </label>
                   </div>
                   <div class="col-lg-6">
-                    <input style="font-size: small" id="checkout" type="date" class="form-control" name="checkout" value="" />
+                    <input style="font-size: small" id="checkout" type="date" min='<?php echo date("Y-m-d", strtotime('+0 hours')); ?>' max='<?php echo date("Y-m-d", strtotime('+2184 hours')); ?>' class="form-control" name="checkout" value="" />
+                    @if ($errors->has('checkout'))
+                      @foreach ($errors->get('checkout') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 <div class="row" style="margin-top:1%">
@@ -213,8 +227,6 @@
                       @foreach ($homestay as $data)
                         @if ($data->business_status == 1)
                         <option value="{{$data->id_business}}">{{$data->business_details->business_name}}</option>
-                        @else
-                        <option value=""><i>not found</i></option>
                         @endif
                       @endforeach
                     </select>
@@ -252,8 +264,6 @@
                       @foreach ($tourism as $data)
                         @if ($data->business_status == 1)
                           <option value="{{$data->id_business}}">{{$data->business_details->business_name}}</option>
-                          @else
-                          <option value=""><i>not found</i></option>
                         @endif
                       @endforeach
                     </select>
@@ -267,7 +277,14 @@
                     <label style="font-size: small"> : </label>
                   </div>
                   <div class="col-lg-6">
-                    <input style="font-size: small" id="checkin_tourism" type="date" class="form-control" name="checkin_tourism" value="" />
+                    <input style="font-size: small" id="checkin_tourism" type="date" min='<?php echo date("Y-m-d", strtotime('+0 hours')); ?>' max='<?php echo date("Y-m-d", strtotime('+2184 hours')); ?>' class="form-control" name="checkin_tourism" value="" />
+                    @if ($errors->has('checkin_tourism'))
+                      @foreach ($errors->get('checkin_tourism') as $message)
+                        <span class="help-block" style="color:#D32F2F">
+                          <strong>{{ $message }}</strong>
+                        </span>
+                      @endforeach
+                    @endif
                   </div>
                 </div>
                 <hr>
@@ -282,7 +299,7 @@
                   </div>
                   <div class="col-lg-6">
                     <select required style="font-size: small" id="total_ticket" type="text" class="form-control" name="total_ticket" value=""/>
-                      <option value="0">0</option>
+                      <option value="0" disabled selected>0</option>
                       <option value="1">1</option>
                       <option value="2">2</option>
                       <option value="3">3</option>

@@ -42,29 +42,34 @@
                 <label for="name" style="font-size:small">Nama</label>
                 <input style="font-size:small" id="name" type="text" class="form-control" name="name" value="{{ old('name') }}" placeholder="masukkan nama lengkap"required autofocus>
                 @if ($errors->has('name'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('name') }}</strong>
-                  </span>
+                  @foreach ($errors->get('name') as $message)
+                    <span class="help-block" style="color:#D32F2F; font-size:small">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
                 @endif
               </div>
               <div class="form-group{{ $errors->has('email') ? ' has-error' : '' }}">
                 <label for="email" style="font-size:small">Alamat Email</label>
                 <input style="font-size:small" id="email" type="email" class="form-control" name="email" value="{{ old('email') }}" placeholder="masukkan email" required>
-
                 @if ($errors->has('email'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('email') }}</strong>
-                  </span>
+                  @foreach ($errors->get('email') as $message)
+                    <span class="help-block" style="color:#D32F2F; font-size:small">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
                 @endif
               </div>
               <div class="form-group{{ $errors->has('password') ? ' has-error' : '' }}">
                 <label style="font-size:small" for="password">Kata Sandi</label>
                 <input style="font-size:small" id="password" type="password" class="form-control" name="password" placeholder="masukkan kata sandi" required>
-
+                <label style="font-size:7pt; color:#D32F2F; float:right"><i>*) masukkan kata sandi minimal 6 karakter</i></label>
                 @if ($errors->has('password'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('password') }}</strong>
-                  </span>
+                  @foreach ($errors->get('password') as $message)
+                    <span class="help-block" style="color:#D32F2F; font-size:small">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
                 @endif
               </div>
               <div class="form-group" >
@@ -81,20 +86,23 @@
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label style="font-size:small" for="name">Alamat</label>
                 <input style="font-size:small" id="address" type="text" class="form-control" name="address" value="{{ old('address') }}" placeholder="masukkan alamat" required autofocus>
-
                 @if ($errors->has('address'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('address') }}</strong>
-                  </span>
+                  @foreach ($errors->get('address') as $message)
+                    <span class="help-block" style="color:#D32F2F; font-size:small">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
                 @endif
               </div>
               <div class="form-group{{ $errors->has('name') ? ' has-error' : '' }}">
                 <label style="font-size:small" for="phone_number">Nomer Telepon</label>
-                <input style="font-size:small" id="phone_number" type="text" class="form-control" name="phone_number" value="{{ old('phone_number') }}" placeholder="masukkan nomer telepon"required autofocus>
-                @if ($errors->has('phone'))
-                  <span class="help-block">
-                    <strong>{{ $errors->first('phone') }}</strong>
-                  </span>
+                <input style="font-size:small" id="phone_number" type="number" class="form-control" name="phone_number" min="0" minlength="10" maxlength="13" value="{{ old('phone_number') }}" placeholder="masukkan nomer telepon"required autofocus>
+                @if ($errors->has('phone_number'))
+                  @foreach ($errors->get('phone_number') as $message)
+                    <span class="help-block" style="color:#D32F2F; font-size:small">
+                      <strong>{{ $message }}</strong>
+                    </span>
+                  @endforeach
                 @endif
               </div>
             </div>

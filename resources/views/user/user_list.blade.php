@@ -49,7 +49,7 @@
                             </a>
                         </td>
                         <td>
-                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deletePopUp"><i class="fa fa-fw fa-trash"></i></button>
+                            <button type="submit" class="btn btn-danger" data-toggle="modal" data-target="#deletePopUp{{$index}}"><i class="fa fa-fw fa-trash"></i></button>
                         </td>
                       </tr>
                   </table>
@@ -57,20 +57,20 @@
           </tr>
 
           <!-- Delete Modal -->
-          <div class="modal fade" id="deletePopUp" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+          <div class="modal fade" id="deletePopUp{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
             <div class="modal-dialog" role="document">
               <div class="modal-content">
                 <div class="modal-header">
-                  <h5 class="modal-title" id="exampleModalLabel">Delete item</h5>
+                  <h5 class="modal-title" id="exampleModalLabel">Hapus Data</h5>
                   <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                     <span aria-hidden="true">&times;</span>
                   </button>
                 </div>
                 <div class="modal-body">
-                  Are you sure to delete this item ?
+                  Apakah Anda yakin untuk menghapus data tersebut ?
                 </div>
                 <div class="modal-footer">
-                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Cancel</button>
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Batal</button>
                   <form action="userDelete" method="POST">
                     <input type="hidden" name="id" value="{{$data->id_user}}">
                     <input type="hidden" name="_token" value="{{ csrf_token() }}">

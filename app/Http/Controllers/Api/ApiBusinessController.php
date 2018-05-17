@@ -26,16 +26,49 @@ class ApiBusinessController extends ApiBaseController
     return response()->json($homestay);
   }
 
+  public function getAllUsahaByCity($id)
+  {
+    $usaha = business::with('business_details', 'review')->where('id_city', $id)->get();
+    $hasil = ['business_details'=>$usaha];
+    if ($hasil!=null) {
+      return $this->baseResponse(false, 'berhasil', $hasil);
+    } else {
+      return $this->baseResponse(true, 'null', $hasil);
+    }
+  }
+
+  public function getAllSpesificUsahaByCity($id, $bis) //menampilkan 1 usaha dengan kotanya
+  {
+    $usaha = business::with('business_details', 'review')->where([['id_city', $id],['id_business_details', $bis]])->get();
+    $hasil = ['business_details'=>$usaha];
+    if ($hasil!=null) {
+      return $this->baseResponse(false, 'berhasil', $hasil);
+    } else {
+      return $this->baseResponse(true, 'null', $hasil);
+    }
+  }
+
+  public function getAllMenuUsahaByCity($id, $menu) //menampilkan 1 usaha dengan jenis usahanya
+  {
+    $usaha = business::with('business_details', 'review')->where([['id_city', $id],['id_menu', $menu]])->get();
+    $hasil = ['business_details'=>$usaha];
+    if ($hasil!=null) {
+      return $this->baseResponse(false, 'berhasil', $hasil);
+    } else {
+      return $this->baseResponse(true, 'null', $hasil);
+    }
+  }
+
   public function getDetailBusiness($id)
   {
     $menu = menu::find($id);
     if($id == 1){
-      $business_detail = business::with('business_details')->where('id_menu', 1)->get();
+      $business_detail = business::with('business_details', 'review')->where('id_menu', 1)->get();
       $hasil = ['business_details'=>$business_detail,'menu'=> $menu, 'id_usaha'=>$id ];
       return response()->json($hasil);
 
     }elseif ($id == 2) {
-      $business_detail = business::with('business_details')->where('id_menu', 2)->get();
+      $business_detail = business::with('business_details', 'review')->where('id_menu', 2)->get();
       $hasil = ['business_details'=>$business_detail,'menu'=> $menu, 'id_usaha'=>$id ];
       return response()->json($hasil);
     }
@@ -51,6 +84,17 @@ class ApiBusinessController extends ApiBaseController
     //   $hasil = ['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id];
     //   return response()->json($hasil);
     // }
+  }
+
+  public function getDetailPerBisnis($id)
+  {
+    $business_detail = business::with('business_details', 'review')->where('id_business_details', $id)->get();
+    $hasil = ['business_details'=>$business_detail];
+    if ($hasil!=null) {
+      return $this->baseResponse(false, 'berhasil', $hasil);
+    } else {
+      return $this->baseResponse(true, 'null', $hasil);
+    }
   }
 
   public function getNearby(Request $request, $id)
@@ -70,11 +114,13 @@ class ApiBusinessController extends ApiBaseController
         + sin ( radians($lat) )
         * sin( radians( business_lat ) )
       )
-    ) AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu
+    ) AS distance, a.id_business_details, a.business_name, a.business_price, b.id_menu, c.rating
     FROM business_details a
     JOIN businesses b
     ON a.id_business_details = b.id_business_details
-    WHERE a.business_price < ('$price') AND b.id_menu=2
+    JOIN reviews c
+    ON b.id_business = c.id_business
+    WHERE a.business_price < ('$price') AND b.id_menu=2 OR c.id_business= c.id_business
     HAVING distance < 5
     ORDER BY distance");
 

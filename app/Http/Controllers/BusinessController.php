@@ -72,11 +72,15 @@ class BusinessController extends Controller
       }
 
       $this->validate($data, [
-          'bus_pict' => 'required|image:png|image:jpg|image:jpeg',
-          'img' => 'required|image:png|image:jpg|image:jpeg',
-          'imgg' => 'image:png|image:jpg|image:jpeg',
-          'imggg' => 'image:png|image:jpg|image:jpeg',
-          'desc' => 'max:500',
+          'email' => 'required|unique:business_details,business_email',
+          'bus_pict' => 'required|mimes:png,jpg,jpeg|max:5120',
+          'img' => 'required|mimes:png,jpg,jpeg|max:5120',
+          'imgg' => 'required|mimes:png,jpg,jpeg|max:5120',
+          'imggg' => 'required|mimes:png,jpg,jpeg|max:5120',
+          'desc' => 'required|max:500',
+          'phone' => 'required|numeric',
+          'lat' => 'required',
+          'lang' => 'required'
       ]);
 
       $business_detail = business_detail::create([
@@ -161,7 +165,7 @@ class BusinessController extends Controller
     {
       $menu = menu::find($id);
       $tes_data_booking = DB::SELECT("
-      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
+      SELECT users.name, transaction_payments.status_transfer, booking_details.id_tourism, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
       FROM booking_details
       INNER JOIN users ON booking_details.id_user = users.id_user
       INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
@@ -179,6 +183,13 @@ class BusinessController extends Controller
 
     public function update(Request $data, $id_business, $id_menu)
     {
+      $this->validate($data, [
+          'bus_pict' => 'mimes:png,jpg,jpeg|max:5120',
+          'desc' => 'required|max:500',
+          'phone' => 'required|numeric',
+          'lat' => 'required',
+          'lang' => 'required'
+      ]);
           $business_detail = business_detail::find($id_business);
           $business_detail->business_name = $data->input('name');
           $business_detail->business_email = $data->input('email');
@@ -193,16 +204,21 @@ class BusinessController extends Controller
           if ($id_menu == 2) {
             $business_detail->condition = $data->input('condition');
           }
-
-            $pict = $data->file('bus_pict')->store('bus_avatar','public');
-            $business_detail->business_profile_pict = $pict;
-           $business_detail->save();
+          if ($data->bus_pict) {
+            $pict = $data->bus_pict->store('bus_avatar','public');
+            business_detail::find($data->input('bus_pict'))->update(
+              ['business_profile_pict' => $pict]
+            );
+          }
+           //  $pict = $data->file('bus_pict')->update('bus_avatar','public');
+           //  $business_detail->business_profile_pict = $pict;
+           // $business_detail->save();
            alert()->success('Data usaha berhasil diubah', 'Selamat')->persistent('Tutup');
            return redirect()->route('businessDetail',['id'=>$id_menu]);
     }
 
 
-    public function delete(Request $request)
+    public function deleteBusiness(Request $request)
     {
       if($request->id_usaha == 1 ){
         $business = business::where('id_business_details',$request->id_business_detail)->delete();
@@ -222,11 +238,10 @@ class BusinessController extends Controller
 
     public function updateDetailImage(Request $request, $id)
     {
-
       $this->validate($request, [
-          'img' => 'required|image:png|image:jpg|image:jpeg',
-          'imgg' => 'image:png|image:jpg|image:jpeg',
-          'imggg' => 'image:png|image:jpg|image:jpeg',
+          'img' => 'mimes:png,jpg,jpeg|max:5120',
+          'imgg' => 'mimes:png,jpg,jpeg|max:5120',
+          'imggg' => 'mimes:png,jpg,jpeg|max:5120'
       ]);
       if ($request->img) {
         $path1 = $request->img->store('bus_detail','public');

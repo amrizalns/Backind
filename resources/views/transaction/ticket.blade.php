@@ -36,6 +36,7 @@
                     <span style="color:#000000;"><h5><strong>#BACKIND2018{{$data->booking_detail->id_booking+100}}</strong></h5></span>
                   </div>
                   <div class="col-lg-12" style="background-color: #f5f5f5; margin-top:10px; margin-bottom:10px; padding:10px">
+                    @if ($data->booking_detail->id_homestay == !null)
                     <span style="color:#424242;font-size:11pt"><strong>Nama Homestay : {{$data->booking_detail->homestay->business_details->business_name}}</strong></span>
 
                     <div class="row" style="margin-top:10px">
@@ -54,7 +55,8 @@
                         <span style="color:#757575;">{{date($data->booking_detail->checkout)}}</span>
                       </div>
                     </div>
-                    @if ($data->booking_detail->checkin_tourism == !null)
+                  @endif
+                    @if ($data->booking_detail->id_tourism == !null)
                     <hr>
                     <span style="color:#424242; font-size:11pt"><strong>Nama Wisata : {{$data->booking_detail->tourism->business_details->business_name}}</strong></span>
                     <div class="row" style="margin-top:10px">
@@ -69,16 +71,16 @@
                     </div>
                     @endif
                   </div>
-                    <div class="col-lg-12">
-                      <div style="border-radius:15px; padding: 3px; background-color: #00C853; color:#ffffff">
-                        <span style="margin-left:15px">E-TICKET ISSUED</span>
-                      </div>
+                  <div class="col-lg-12">
+                    <div style="border-radius:15px; padding: 3px; background-color: #00C853; color:#ffffff">
+                      <span style="margin-left:15px">E-TICKET ISSUED</span>
                     </div>
+                  </div>
                     <div class="col-lg-12" style="margin-top:10px">
                       <div class="row">
                         <div class="col-lg-8"></div>
                         <div class="col-lg-4">
-                          <button style="font-size:small; width:100%" type="submit" class="btn btn-info" data-toggle="modal" data-target="#paid{{$index}}" >
+                          <button style="font-size:small; width:100%" type="submit" class="btn btn-info" data-toggle="modal" data-target="#wait{{$index}}" >
                             Detail
                           </button>
                         </div>
@@ -86,8 +88,7 @@
                     </div>
                 </div>
               </div>
-
-              <div class="modal fade" id="paid{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="wait{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header" style="background-color: #00B0FF;">
@@ -176,7 +177,11 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
+                                @if ($data->booking_detail->id_homestay != null)
                                 <span style="color:#000000;font-size:10px">{{$data->booking_detail->homestay->business_details->business_name}}</span>
+                                @else
+                                  <span style="color:#000000;font-size:10px"> - </span>
+                                @endif
                               </div>
                             </div>
                             <div class="row">
@@ -187,7 +192,7 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
-                                @if ($data->booking_detail->checkin_tourism != null)
+                                @if ($data->booking_detail->id_tourism != null)
                                       <span style="color:#000000;font-size:10px">{{$data->booking_detail->tourism->business_details->business_name}}</span>
                                     @else
                                       <span style="color:#000000;font-size:10px"> - </span>
@@ -218,21 +223,25 @@
                                     <td valign="top" align="center"><span style="color:#000000;font-size:10px">1.</span></td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         {{$data->booking_detail->homestay->business_details->business_name}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
-                                          {{$data->booking_detail->tourism->business_details->business_name}}
-                                          @else
-                                            <span> - </span>
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_tourism != null)
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            {{$data->booking_detail->homestay->business_details->business_name}}
                                         @endif
                                       </span>
                                     </td>
                                     <td align="right">
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                        @elseif($data->booking_detail->id_tourism != null)
                                           Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            <span> - </span>
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
                                       </span>
                                     </td>
@@ -245,22 +254,23 @@
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                      @if ($data->booking_detail->id_tourism != null && $data->booking_detail->id_homestay != null)
                                           Rp.{{number_format($data->booking_detail->homestay->business_details->business_price + $data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_homestay != null)
+                                          Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
-
                                       </span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td colspan="2">
-                                      <span style="color:#000000;font-size:10px"> Administration Fee (-)</span>
+                                      <span style="color:#000000;font-size:10px"> Administration Fee (+)</span>
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        -Rp.{{$data->booking_detail->id_booking+100}}
+                                        +Rp.{{$data->booking_detail->id_booking+100}}
                                       </span>
                                     </td>
                                   </tr>
@@ -289,8 +299,9 @@
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-info">Kirim ulang ke email</button></td>
 
                         <a href="{{route('printPaidTicket',['id'=> $data->booking_detail->id_booking])}}">
-                          <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
+                        <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
                         </a>
+
                       </form>
                     </div>
                   </div>
@@ -308,6 +319,7 @@
                     <span style="color:#000000;"><h5><strong>#BACKIND2018{{$data->booking_detail->id_booking+100}}</strong></h5></span>
                   </div>
                   <div class="col-lg-12" style="background-color: #f5f5f5; margin-top:10px; margin-bottom:10px; padding:10px">
+                    @if ($data->booking_detail->id_homestay == !null)
                     <span style="color:#424242;font-size:11pt"><strong>Nama Homestay : {{$data->booking_detail->homestay->business_details->business_name}}</strong></span>
 
                     <div class="row" style="margin-top:10px">
@@ -326,8 +338,8 @@
                         <span style="color:#757575;">{{date($data->booking_detail->checkout)}}</span>
                       </div>
                     </div>
-
-                    @if ($data->booking_detail->checkin_tourism == !null)
+                  @endif
+                    @if ($data->booking_detail->id_tourism == !null)
                     <hr>
                     <span style="color:#424242; font-size:11pt"><strong>Nama Wisata : {{$data->booking_detail->tourism->business_details->business_name}}</strong></span>
                     <div class="row" style="margin-top:10px">
@@ -448,7 +460,11 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
+                                @if ($data->booking_detail->id_homestay != null)
                                 <span style="color:#000000;font-size:10px">{{$data->booking_detail->homestay->business_details->business_name}}</span>
+                                @else
+                                  <span style="color:#000000;font-size:10px"> - </span>
+                                @endif
                               </div>
                             </div>
                             <div class="row">
@@ -459,7 +475,7 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
-                                @if ($data->booking_detail->checkin_tourism != null)
+                                @if ($data->booking_detail->id_tourism != null)
                                       <span style="color:#000000;font-size:10px">{{$data->booking_detail->tourism->business_details->business_name}}</span>
                                     @else
                                       <span style="color:#000000;font-size:10px"> - </span>
@@ -490,21 +506,25 @@
                                     <td valign="top" align="center"><span style="color:#000000;font-size:10px">1.</span></td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         {{$data->booking_detail->homestay->business_details->business_name}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
-                                          {{$data->booking_detail->tourism->business_details->business_name}}
-                                          @else
-                                            <span> - </span>
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_tourism != null)
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            {{$data->booking_detail->homestay->business_details->business_name}}
                                         @endif
                                       </span>
                                     </td>
                                     <td align="right">
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                        @elseif($data->booking_detail->id_tourism != null)
                                           Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            <span> - </span>
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
                                       </span>
                                     </td>
@@ -517,22 +537,23 @@
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                      @if ($data->booking_detail->id_tourism != null && $data->booking_detail->id_homestay != null)
                                           Rp.{{number_format($data->booking_detail->homestay->business_details->business_price + $data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_homestay != null)
+                                          Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
-
                                       </span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td colspan="2">
-                                      <span style="color:#000000;font-size:10px"> Administration Fee (-)</span>
+                                      <span style="color:#000000;font-size:10px"> Administration Fee (+)</span>
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        -Rp.{{$data->booking_detail->id_booking+100}}
+                                        +Rp.{{$data->booking_detail->id_booking+100}}
                                       </span>
                                     </td>
                                   </tr>
@@ -581,6 +602,7 @@
                     <span style="color:#000000;"><h5><strong>#BACKIND2018{{$data->booking_detail->id_booking+100}}</strong></h5></span>
                   </div>
                   <div class="col-lg-12" style="background-color: #f5f5f5; margin-top:10px; margin-bottom:10px; padding:10px">
+                    @if ($data->booking_detail->id_homestay == !null)
                     <span style="color:#424242;font-size:11pt"><strong>Nama Homestay : {{$data->booking_detail->homestay->business_details->business_name}}</strong></span>
 
                     <div class="row" style="margin-top:10px">
@@ -599,8 +621,8 @@
                         <span style="color:#757575;">{{date($data->booking_detail->checkout)}}</span>
                       </div>
                     </div>
-
-                    @if ($data->booking_detail->checkin_tourism == !null)
+                  @endif
+                    @if ($data->booking_detail->id_tourism == !null)
                     <hr>
                     <span style="color:#424242; font-size:11pt"><strong>Nama Wisata : {{$data->booking_detail->tourism->business_details->business_name}}</strong></span>
                     <div class="row" style="margin-top:10px">
@@ -624,7 +646,7 @@
                       <div class="row">
                         <div class="col-lg-8"></div>
                         <div class="col-lg-4">
-                          <button style="font-size:small; width:100%" type="submit" class="btn btn-info" data-toggle="modal" data-target="#exp{{$index}}" >
+                          <button style="font-size:small; width:100%" type="submit" class="btn btn-info" data-toggle="modal" data-target="#wait{{$index}}" >
                             Detail
                           </button>
                         </div>
@@ -632,7 +654,7 @@
                     </div>
                 </div>
               </div>
-              <div class="modal fade" id="exp{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+              <div class="modal fade" id="wait{{$index}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
                 <div class="modal-dialog" role="document">
                   <div class="modal-content">
                     <div class="modal-header" style="background-color: #00B0FF;">
@@ -721,7 +743,11 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
+                                @if ($data->booking_detail->id_homestay != null)
                                 <span style="color:#000000;font-size:10px">{{$data->booking_detail->homestay->business_details->business_name}}</span>
+                                @else
+                                  <span style="color:#000000;font-size:10px"> - </span>
+                                @endif
                               </div>
                             </div>
                             <div class="row">
@@ -732,7 +758,7 @@
                                 <span style="color:#000000;font-size:10px">:</span>
                               </div>
                               <div class="col-lg-6">
-                                @if ($data->booking_detail->checkin_tourism != null)
+                                @if ($data->booking_detail->id_tourism != null)
                                       <span style="color:#000000;font-size:10px">{{$data->booking_detail->tourism->business_details->business_name}}</span>
                                     @else
                                       <span style="color:#000000;font-size:10px"> - </span>
@@ -763,21 +789,25 @@
                                     <td valign="top" align="center"><span style="color:#000000;font-size:10px">1.</span></td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         {{$data->booking_detail->homestay->business_details->business_name}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
-                                          {{$data->booking_detail->tourism->business_details->business_name}}
-                                          @else
-                                            <span> - </span>
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_tourism != null)
+                                        {{$data->booking_detail->tourism->business_details->business_name}}
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            {{$data->booking_detail->homestay->business_details->business_name}}
                                         @endif
                                       </span>
                                     </td>
                                     <td align="right">
                                       <span style="color:#000000;font-size:10px">
+                                        @if ($data->booking_detail->id_homestay != null && $data->booking_detail->id_tourism != null)
                                         Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}<br>
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                        @elseif($data->booking_detail->id_tourism != null)
                                           Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            <span> - </span>
+                                        @elseif($data->booking_detail->id_homestay != null)
+                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
                                       </span>
                                     </td>
@@ -790,22 +820,23 @@
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        @if ($data->booking_detail->checkin_tourism != null)
+                                      @if ($data->booking_detail->id_tourism != null && $data->booking_detail->id_homestay != null)
                                           Rp.{{number_format($data->booking_detail->homestay->business_details->business_price + $data->booking_detail->tourism->business_details->business_price)}}
-                                          @else
-                                            Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_tourism != null)
+                                        Rp.{{number_format($data->booking_detail->tourism->business_details->business_price)}}
+                                      @elseif ($data->booking_detail->id_homestay != null)
+                                          Rp.{{number_format($data->booking_detail->homestay->business_details->business_price)}}
                                         @endif
-
                                       </span>
                                     </td>
                                   </tr>
                                   <tr>
                                     <td colspan="2">
-                                      <span style="color:#000000;font-size:10px"> Administration Fee (-)</span>
+                                      <span style="color:#000000;font-size:10px"> Administration Fee (+)</span>
                                     </td>
                                     <td>
                                       <span style="color:#000000;font-size:10px">
-                                        -Rp.{{$data->booking_detail->id_booking+100}}
+                                        +Rp.{{$data->booking_detail->id_booking+100}}
                                       </span>
                                     </td>
                                   </tr>
@@ -832,7 +863,11 @@
                       <button type="button" class="btn btn-danger" data-dismiss="modal" style="color:#FFFFFF; font-size:small">Cancel</button>
                         <input type="hidden" name="_token" value="{{ csrf_token() }}">
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-info">Kirim ulang ke email</button></td>
+
+                        <a href="{{route('printExpTicket',['id'=> $data->booking_detail->id_booking])}}">
                         <button type="submit" style="color:#FFFFFF; font-size:small" class="btn btn-primary">Cetak</button></td>
+                        </a>
+
                       </form>
                     </div>
                   </div>

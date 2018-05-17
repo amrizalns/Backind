@@ -19,6 +19,11 @@ class BookingDetailController extends Controller
      *
      * @return \Illuminate\Http\Response
      */
+     public function __construct()
+     {
+         $this->middleware('auth');
+     }
+     
     public function index()
     {
         $user = User::all();
@@ -45,10 +50,25 @@ class BookingDetailController extends Controller
      */
     public function store(Request $request)
     {
+      if ($request->input('homestay')) {
+        $this->validate($request, [
+            'checkin' => 'required',
+            'checkout' => 'required'
+        ]);
+      }
+      if ($request->input('tourism')) {
+        $this->validate($request, [
+            'checkin_tourism' => 'required'
+        ]);
+      }
       if (!$request->input('homestay') && !$request->input('tourism')) {
         alert()->warning('Pastikan anda memilih salah satu pesanan !', 'Opps')->persistent('Tutup');
         return redirect(route('add_trans')) ;
+      }
 
+      if ($request->input('total_ticket')==0) {
+        alert()->warning('Pastikan anda jumlah tiket yang di pesan , minimal 1 tiket !', 'Opps')->persistent('Tutup');
+        return redirect(route('add_trans')) ;
       }
 
       $homestay_data = business_detail::find($request->input('homestay'));

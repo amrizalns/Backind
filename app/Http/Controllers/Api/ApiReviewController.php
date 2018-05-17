@@ -11,15 +11,15 @@ use Illuminate\Support\Facades\Auth;
 class ApiReviewController extends ApiBaseController
 {
     public function postreview(Request $request){
-        $business = business::find($request->input('id_business'));
 
         $review = review::create([
-            'id_business'=>$business,
+            'id_business'=>$request->input('id_business'),
             'id_user' => Auth::user()->id_user,
             'review' => $request->input('review'),
             'response' => $request->input('response'),
             'rating' => $request->input('rating'),
         ]);
+
         $result = $review->save();
         if ($result){
             return $this->baseResponse(false, 'berhasil', $review);
@@ -28,8 +28,10 @@ class ApiReviewController extends ApiBaseController
         }
     }
 
-    public function showreview(){
-        $review = review::with('business', 'user')->get();
+
+    public function showreview($id){
+        $review = review::with('business', 'user')->where('id_business',$id)->get();
+        $hasil = ['review'=>$review];
         if ($review){
             return $this->baseResponse(false, 'berhasil', $review);
         } else {

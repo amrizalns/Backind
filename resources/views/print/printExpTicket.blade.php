@@ -68,7 +68,7 @@
 <body>
 {{-- {{\Carbon\Carbon::now()->format('d F Y')}} --}}
 <div class="container-fluid" style="margin-top:40px">
-  @foreach ($paid as $index=>$data)
+  @foreach ($exp as $index=>$data)
   <div class="col-lg-12">
     <table width="100%">
       <tr>
@@ -93,7 +93,7 @@
       </tr>
     </table>
     <hr>
-      <table width="100%" >
+      <table width="100%">
         <tr>
           <td>
             <span style="color:#000000;font-size:12pt"><strong>Customer Details</strong></span>
@@ -228,7 +228,7 @@
       <table width="100%">
         <tr>
           <td align="left">
-            <img src="{{asset('paid.png')}}" style="width:35%">
+            <img src="{{asset('exp.png')}}" style="width:35%">
           </td>
         </tr>
       </table>

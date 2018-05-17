@@ -1,6 +1,7 @@
 <?php
 
 namespace App;
+use App\business;
 
 use Illuminate\Database\Eloquent\Model;
 
@@ -17,7 +18,7 @@ class review extends Model
 
     public function business()
     {
-        return $this->belongsTo(business::class, 'id_business');
+        return $this->belongsTo(business::class, 'id_business', 'id_business');
     }
 
     public function user()
