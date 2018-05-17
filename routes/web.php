@@ -19,6 +19,8 @@ Auth::routes();
 
 Route::get('pagenotfound', ['as'=>'notfound', 'users' => 'HomeController@pagenotfound']);
 
+//Route::get('/password/reset', 'UserController@showResetForm');
+
 Route::group(['middleware'=>['auth']], function(){
   Route::get('/', 'HomeController@home')->name("index");
   Route::get('/home', 'HomeController@home');

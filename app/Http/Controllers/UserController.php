@@ -81,6 +81,7 @@ class UserController extends Controller
         return redirect('userList');
     }
 
+<<<<<<< HEAD
     public function agreement()
     {
         Mail::to(Auth::user()->email)->send(new agreement());
@@ -88,4 +89,10 @@ class UserController extends Controller
         return redirect('/add_trans');
 
     }
+=======
+//    public function showResetForm(){
+//        return view('auth.passwords.reset');
+//    }
+
+>>>>>>> master
 }

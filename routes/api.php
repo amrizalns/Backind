@@ -26,7 +26,11 @@ Route::group(['namespace'=> 'Api'], function(){
 
   Route::get('/getTourism','ApiBusinessController@getTourism');
   Route::get('/getHomestay','ApiBusinessController@getHomestay');
+  Route::get('/getAllUsahaByCity/{id}','ApiBusinessController@getAllUsahaByCity');
+  Route::get('/getAllSpesificUsahaByCity/{id}/{bis}','ApiBusinessController@getAllSpesificUsahaByCity');
+  Route::get('/getAllMenuUsahaByCity/{id}/{menu}','ApiBusinessController@getAllMenuUsahaByCity');
   Route::get('/getDetailBusiness/{id}','ApiBusinessController@getDetailBusiness');
+  Route::get('/getDetailPerBisnis/{id}','ApiBusinessController@getDetailPerBisnis');
 
   Route::post('/postAddBooking','ApiBookingController@store');
   Route::post('/postUpdateCost/{booking_detail}','ApiBookingController@updateCost');
@@ -35,4 +39,7 @@ Route::group(['namespace'=> 'Api'], function(){
   Route::post('/getNearby/{id}','ApiBusinessController@getNearby');
   Route::get('/getMinCity','ApiBusinessController@getMinCity');
   Route::get('/getTicketHistory','ApiTransactionController@getTickerHistory');
+
+  Route::post('postReview', 'ApiReviewController@postreview')->middleware('jwt.auth');
+  Route::get('showReview/{id}', 'ApiReviewController@showreview');
 });
