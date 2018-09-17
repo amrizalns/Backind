@@ -68,7 +68,11 @@ Route::group(['middleware'=>['auth']], function(){
 
   //print
   Route::get('printTransactionData/{id}/{id_business}','BusinessController@printTransactionData');
+  Route::get('printTransactionDataPaid/{id}/{id_business}','BusinessController@printTransactionDataPaid');
+  Route::get('printTransactionDataWait/{id}/{id_business}','BusinessController@printTransactionDataWait');
   Route::get('printPaidTicket/{id}','TransactionPaymentController@printPaidTicket')->name('printPaidTicket');
   Route::get('printWaitTicket/{id}','TransactionPaymentController@printWaitTicket')->name('printWaitTicket');
   Route::get('printExpTicket/{id}','TransactionPaymentController@printExpTicket')->name('printExpTicket');
+
+  Route::get('printUserList','BusinessController@printUserList');
 });

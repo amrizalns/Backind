@@ -9,6 +9,8 @@ use App\business;
 use App\business_detail;
 use App\menu;
 use App\city;
+use App\User;
+use App\roles;
 use DB;
 use App\business_picture;
 use Auth;
@@ -212,7 +214,7 @@ class BusinessController extends Controller
           }
            //  $pict = $data->file('bus_pict')->update('bus_avatar','public');
            //  $business_detail->business_profile_pict = $pict;
-           // $business_detail->save();
+           $business_detail->save();
            alert()->success('Data usaha berhasil diubah', 'Selamat')->persistent('Tutup');
            return redirect()->route('businessDetail',['id'=>$id_menu]);
     }
@@ -276,13 +278,49 @@ class BusinessController extends Controller
     public function printTransactionData($id, $id_business){
       $menu = menu::find($id);
       $tes_data_booking = DB::SELECT("
-      SELECT users.name, transaction_payments.status_transfer, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
+      SELECT users.name, transaction_payments.status_transfer, booking_details.id_tourism, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
       FROM booking_details
       INNER JOIN users ON booking_details.id_user = users.id_user
       INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
-      WHERE booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')");
+      WHERE transaction_payments.status_transfer = 2 AND booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')
+      ORDER BY booking_details.created_at DESC");
+      $business_details = business_detail::find($id_business);
+      return view('print/printTransactionData',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id, 'booking_data'=>$tes_data_booking]);
+    }
+
+    public function printTransactionDataPaid($id, $id_business){
+      $menu = menu::find($id);
+      $tes_data_booking = DB::SELECT("
+      SELECT users.name, transaction_payments.status_transfer, booking_details.id_tourism, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
+      FROM booking_details
+      INNER JOIN users ON booking_details.id_user = users.id_user
+      INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
+      WHERE booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')
+      AND transaction_payments.status_transfer = 1
+      ORDER BY booking_details.created_at DESC");
 
       $business_details = business_detail::find($id_business);
       return view('print/printTransactionData',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id, 'booking_data'=>$tes_data_booking]);
+    }
+
+    public function printTransactionDataWait($id, $id_business){
+      $menu = menu::find($id);
+      $tes_data_booking = DB::SELECT("
+      SELECT users.name, transaction_payments.status_transfer, booking_details.id_tourism, booking_details.created_at, booking_details.checkin, booking_details.checkout, booking_details.checkin_tourism
+      FROM booking_details
+      INNER JOIN users ON booking_details.id_user = users.id_user
+      INNER JOIN transaction_payments ON transaction_payments.id_booking = booking_details.id_booking
+      WHERE booking_details.id_tourism = ('$id_business') OR booking_details.id_homestay = ('$id_business')
+      AND transaction_payments.status_transfer = 2
+      ORDER BY booking_details.created_at DESC");
+
+      $business_details = business_detail::find($id_business);
+      return view('print/printTransactionData',['business_details'=>$business_details, 'menu'=>$menu, 'id_usaha'=>$id, 'booking_data'=>$tes_data_booking]);
+    }
+
+    public function printUserList()
+    {
+      $user = User::all();
+      return view('print/printUserList',['users'=>$user]);
     }
 }

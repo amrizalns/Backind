@@ -23,7 +23,7 @@ class BookingDetailController extends Controller
      {
          $this->middleware('auth');
      }
-     
+
     public function index()
     {
         $user = User::all();
@@ -50,18 +50,18 @@ class BookingDetailController extends Controller
      */
     public function store(Request $request)
     {
-      if ($request->input('homestay')) {
+      if ($request->input('id_homestay')) {
         $this->validate($request, [
             'checkin' => 'required',
             'checkout' => 'required'
         ]);
       }
-      if ($request->input('tourism')) {
+      if ($request->input('id_tourism')) {
         $this->validate($request, [
             'checkin_tourism' => 'required'
         ]);
       }
-      if (!$request->input('homestay') && !$request->input('tourism')) {
+      if (!$request->input('id_homestay') && !$request->input('id_tourism')) {
         alert()->warning('Pastikan anda memilih salah satu pesanan !', 'Opps')->persistent('Tutup');
         return redirect(route('add_trans')) ;
       }
@@ -71,24 +71,51 @@ class BookingDetailController extends Controller
         return redirect(route('add_trans')) ;
       }
 
-      $homestay_data = business_detail::find($request->input('homestay'));
-      $tourism_data = business_detail::find($request->input('tourism'));
+      $homestay_data = business_detail::find($request->input('id_homestay'));
+      $tourism_data = business_detail::find($request->input('id_tourism'));
+      $checkBooking = booking_detail::where('id_homestay', $request->input('id_homestay'))->get();
 
+      $stringToDateReqCheckin = date("Y-m-d", strtotime($request->input('checkin')));
+      $stringToDateReqCheckout = date("Y-m-d", strtotime($request->input('checkout')));
+      $hasilKurang = strtotime($request->input('checkout')) - strtotime($request->input('checkin'));
+      $total_kurang =  round($hasilKurang / (60 * 60 * 24));
       $total_price = 0;
-      if ($request->input('tourism') && $request->input('homestay')) {
-        $total_price = $request->input('total_ticket') * ($homestay_data->business_price + $tourism_data->business_price);
-      }else if ($request->input('tourism')) {
-        $total_price = $request->input('total_ticket') * ($tourism_data->business_price);
-      }else if ($request->input('homestay')) {
-        $total_price = $request->input('total_ticket') * ($homestay_data->business_price);
+
+      // pesan homestay dan wisata
+      if ($request->input('id_tourism') && $request->input('id_homestay')) {
+        $total_price = $total_kurang * ($homestay_data->business_price + $tourism_data->business_price);
+      }else if ($request->input('id_tourism')) {
+        $total_price = $total_kurang * ($tourism_data->business_price);
+      }else if ($request->input('id_homestay')) {
+        $total_price = $total_kurang * ($homestay_data->business_price);
       }
 
-      if ($request->input('tourism')) {
-        // $tourism = $tourism_data->business_price;
+      $id_booking = null;
+      if($stringToDateReqCheckin == $stringToDateReqCheckout){
+          alert()->warning('Tanggal tidak boleh sama, minimal 1 malam !', 'Opps')->persistent('Tutup');
+      }
+
+      if ($request->input('id_tourism') && $request->input('id_homestay')) {
+        //$tourism = $tourism_data->business_price;
         $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
+
+        for($i=0;$i<sizeof($checkBooking);$i++){
+          $booking = transaction_payment::where('id_booking', $checkBooking[$i]->id_booking)->get();
+          $status = $booking[0]->status_transfer;
+          $dateHomestayCheckin = $checkBooking[$i]->checkin;
+          $dateHomestayCheckout = $checkBooking[$i]->checkout;
+          //return var_dump($checkBooking[0]->checkin);
+          $convertCheckin = date("Y-m-d", strtotime($dateHomestayCheckin));
+          $convertCheckout = date("Y-m-d", strtotime($dateHomestayCheckout));
+
+          if (($stringToDateReqCheckin >= $convertCheckin) && ($stringToDateReqCheckin < $convertCheckout) && $status != 3)
+          {
+            alert()->warning('Homestay sudah terisi / status blm exp, silahkan pilih di tanggal lain !', 'Opps')->persistent('Tutup');
+          }
+        }
         $id_booking = booking_detail::create([
-          'id_tourism' => $request->input('tourism'),
-          'id_homestay' => $request->input('homestay'),
+          'id_tourism' => $request->input('id_tourism'),
+          'id_homestay' => $request->input('id_homestay'),
           'id_user' => Auth::user()->id_user,
           'checkin' => $request->input('checkin'),
           'checkout' => $request->input('checkout'),
@@ -98,11 +125,41 @@ class BookingDetailController extends Controller
           'duedate' => $duedate
 
         ]);
-      }else{
+
+      // pesan wisata
+      }elseif ($request->input('id_tourism')){
         // $homestay = $homestay_data->business_price;
         $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
         $id_booking = booking_detail::create([
-          'id_homestay' => $request->input('homestay'),
+          'id_tourism' => $request->input('id_tourism'),
+          'id_user' => Auth::user()->id_user,
+          'checkin' => $request->input('checkin'),
+          'checkout' => $request->input('checkout'),
+          'checkin_tourism' => $request->input('checkin_tourism'),
+          'total_ticket' => $request->input('total_ticket'),
+          'total_cost' => $total_price,
+          'duedate' => $duedate
+        ]);
+
+        // pesan homestay
+      }elseif ($request->input('id_homestay')){
+        $duedate = date("Y-m-d H:i:s", strtotime('+10 hours'));
+        for($i=0;$i<sizeof($checkBooking);$i++){
+          $booking = transaction_payment::where('id_booking', $checkBooking[$i]->id_booking)->get();
+          $status = $booking[0]->status_transfer;
+          $dateHomestayCheckin = $checkBooking[$i]->checkin;
+          $dateHomestayCheckout = $checkBooking[$i]->checkout;
+          //return var_dump($checkBooking[0]->checkin);
+          $convertCheckin = date("Y-m-d", strtotime($dateHomestayCheckin));
+          $convertCheckout = date("Y-m-d", strtotime($dateHomestayCheckout));
+
+          if (($stringToDateReqCheckin >= $convertCheckin) && ($stringToDateReqCheckin < $convertCheckout) && $status != 3)
+          {
+            alert()->warning('Homestay sudah terisi / status blm exp, silahkan pilih di tanggal lain !', 'Opps')->persistent('Tutup');
+          }
+        }
+        $id_booking = booking_detail::create([
+          'id_homestay' => $request->input('id_homestay'),
           'id_user' => Auth::user()->id_user,
           'checkin' => $request->input('checkin'),
           'checkout' => $request->input('checkout'),
@@ -112,11 +169,15 @@ class BookingDetailController extends Controller
           'duedate' => $duedate
         ]);
       }
-
       transaction_payment::create([
         'id_booking' => $id_booking->id_booking
       ]);
-      return redirect(route('invoice', ['booking_detail'=>$id_booking]));
+
+      if ($id_booking->save()) {
+        return redirect(route('invoice', ['booking_detail'=>$id_booking]));
+      } else {
+        alert()->warning('Gagal Membuat Booking !', 'Opps')->persistent('Tutup');
+      }
     }
 
     public function invoice(booking_detail $booking_detail)

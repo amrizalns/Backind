@@ -170,9 +170,9 @@ class TransactionPaymentController extends Controller
 
     public function deleteBookingSpAdmin(Request $request)
     {
-      $booking_detail = booking_detail::where('id_booking', $request->id_booking)->delete();
       $transaction_payment = transaction_payment::where('id_transaksi', $request->id_transaksi)->delete();
-
+      $booking_detail = booking_detail::where('id_booking', $request->id_booking)->delete();
+      
       alert()->success('Data berhasil dihapus', 'Selamat')->persistent('Tutup');
       return redirect('status_trans_spadmin');
     }

@@ -22,7 +22,7 @@ class ApiReviewController extends ApiBaseController
         if ($review->save()){
             return $this->baseResponse(false, 'berhasil', $review);
         } else {
-            return $this->baseResponse(true, 'gagal membuat review', $review);
+            return $this->baseResponse(true, 'gagal membuat review', null);
         }
     }
 

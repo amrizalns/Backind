@@ -24,9 +24,12 @@ Route::group(['namespace'=> 'Api'], function(){
   Route::get('/getDataUser', 'ApiUserController@getDataUser');
   Route::post('/postUpdateDataUser','ApiUserController@postDataUser');
 
+
   Route::get('/getTourism','ApiBusinessController@getTourism');
   Route::get('/getHomestay','ApiBusinessController@getHomestay');
   Route::get('/getAllUsahaByCity/{id}','ApiBusinessController@getAllUsahaByCity');
+  Route::get('/getHomestayInThatCities/{id}','ApiBusinessController@getHomestayInThatCities');
+  Route::get('/getTourismInThatCities/{id}','ApiBusinessController@getTourismInThatCities');
   Route::get('/getAllSpesificUsahaByCity/{id}/{bis}','ApiBusinessController@getAllSpesificUsahaByCity');
   Route::get('/getAllMenuUsahaByCity/{id}/{menu}','ApiBusinessController@getAllMenuUsahaByCity');
   Route::get('/getDetailBusiness/{id}','ApiBusinessController@getDetailBusiness');
@@ -42,4 +45,6 @@ Route::group(['namespace'=> 'Api'], function(){
 
   Route::post('postReview', 'ApiReviewController@postreview')->middleware('jwt.auth');
   Route::get('showReview/{id}', 'ApiReviewController@showreview');
+
+  Route::post('/postuploadBukti','ApiTransactionController@uploadBukti');
 });

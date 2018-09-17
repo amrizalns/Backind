@@ -84,6 +84,12 @@
         @endforeach
           </tbody>
      </table>
+     <div class="col-lg-12; pull-right" style="margin-right:15px">
+       <br>
+       <a href="/printUserList">
+         <button type="submit" class="btn btn-primary" name="button" style="font-size:small">Cetak</button>
+       </a>
+     </div>
    </div>
   </div>
 </div>

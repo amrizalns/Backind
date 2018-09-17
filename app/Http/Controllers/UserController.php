@@ -45,6 +45,7 @@ class UserController extends Controller
         $user = User::find($request->id);
         $user->id_roles= $request->roles;
         $user->save();
+        alert()->success('Status pengguna berhasil diperbaharui !', 'Selamat')->persistent('Tutup');
         return redirect('userList');
     }
 
@@ -71,8 +72,14 @@ class UserController extends Controller
         $user->address= $request->address;
         $user->phone_number= $request->phone_number;
         $user->avatar= $path;
-        $user->save();
-        return redirect()->route('index');
+
+        if ($user->save()) {
+          alert()->success('Data Profil anda berhasil diperbaharui !', 'Selamat')->persistent('Tutup');
+          return redirect()->route('index');
+        }else {
+          alert()->warning('Data Profil anda gagal diperbaharui !', 'Opps')->persistent('Tutup');
+        }
+
     }
 
     public function deleteUser(Request $request){
@@ -81,7 +88,6 @@ class UserController extends Controller
         return redirect('userList');
     }
 
-<<<<<<< HEAD
     public function agreement()
     {
         Mail::to(Auth::user()->email)->send(new agreement());
@@ -89,10 +95,7 @@ class UserController extends Controller
         return redirect('/add_trans');
 
     }
-=======
 //    public function showResetForm(){
 //        return view('auth.passwords.reset');
 //    }
-
->>>>>>> master
 }
